@@ -5,3 +5,5 @@
 **Pelaajan toiminnot:**
 - pelin aloittaminen
 - hahmon ohjaaminen
+
+![Luokkakaavio](images/Luokkakaavio.png)
