@@ -4,27 +4,36 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import pacman.framework.KeyInput;
+import pacman.objects.Player;
 
 public class Pacman extends Canvas implements Runnable {
     
-    public static final int WIDTH = 640;
-    public static final int HEIGHT = 480;
+    public static final int WIDTH = 672;
+    public static final int HEIGHT = 744;
     
     private Thread thread;
     private boolean running = false;
+    
+    public static Player player;
     
     public Pacman() {
         new Window(WIDTH, HEIGHT, "Pacman", this);
     }
     
-    public static void main(String[] args) {
-        new Pacman();
+    public void init() {
+        player = new Player(WIDTH / 2, HEIGHT / 2); //luodaan pelaaja
+        
+        this.addKeyListener(new KeyInput(player)); //luodaan keyListener
     }
     
     public synchronized void start() {
         if (running) {
             return;
         }
+        
+        init(); //tehdään kartta ja luodaan peliobjektit ja keyListener
+        this.requestFocus(); //ei tarvitse erikseen klikata ikkunaa jotta kontrollit toimisivat
         
         running = true;
         thread = new Thread(this);
@@ -74,7 +83,7 @@ public class Pacman extends Canvas implements Runnable {
     }
     
     private void update() {
-        
+        player.update();
     }
     
     private void render() {
@@ -89,6 +98,7 @@ public class Pacman extends Canvas implements Runnable {
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         
+        player.render(g);
         //piirto loppuu tähän//
         g.dispose();
         bs.show();
