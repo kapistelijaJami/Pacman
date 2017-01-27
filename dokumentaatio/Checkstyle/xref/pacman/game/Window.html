@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi_FI" lang="fi_FI">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Window xref</title>
+<link type="text/css" rel="stylesheet" href="../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../apidocs/pacman/game/Window.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> pacman.game;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.awt.Dimension;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> javax.swing.JFrame;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../pacman/game/Window.html">Window</a> {
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>       <strong class="jxr_keyword">public</strong> <a href="../../pacman/game/Window.html">Window</a>(<strong class="jxr_keyword">int</strong> width, <strong class="jxr_keyword">int</strong> height, String title, <a href="../../pacman/game/Pacman.html">Pacman</a> game) {
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>           JFrame frame = <strong class="jxr_keyword">new</strong> JFrame(title);
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>           
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>          frame.setPreferredSize(<strong class="jxr_keyword">new</strong> Dimension(width, height)); <em class="jxr_comment">//laitetaan ikkunan koko</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>          frame.setMinimumSize(<strong class="jxr_keyword">new</strong> Dimension(width, height));
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>          frame.setMaximumSize(<strong class="jxr_keyword">new</strong> Dimension(width, height));
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>          
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); <em class="jxr_comment">//ikkuna sulkeutuu rastista</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>          frame.setResizable(false); <em class="jxr_comment">//ikkunaa ei voida venyttää</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>          frame.setLocationRelativeTo(<strong class="jxr_keyword">null</strong>); <em class="jxr_comment">//ikkuna syntyy näytön keskelle</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>          frame.add(game); <em class="jxr_comment">//lisätään peli ikkunaan</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>          frame.pack(); <em class="jxr_comment">//pakataan kaikki</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>          frame.setVisible(<strong class="jxr_keyword">true</strong>); <em class="jxr_comment">//laitetaan ikkuna näkyväksi</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>          
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>          game.start();
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>      }
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2017. All rights reserved.</div>
+</body>
+</html>
