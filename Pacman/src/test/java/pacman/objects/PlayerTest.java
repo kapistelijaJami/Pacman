@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import pacman.framework.Direction;
+import pacman.game.Level;
 
 public class PlayerTest {
     
@@ -41,27 +42,28 @@ public class PlayerTest {
     @Test
     public void updateTest() {
         Player p = new Player(24, 50);
+        Level level = new Level(28, 31);
         p.setVelocity(5);
         
         p.setDirection(Direction.UP);
-        p.update();
+        p.update(level);
         
         assertEquals(45, p.getY());
         
         p.setDirection(Direction.RIGHT);
-        p.update();
+        p.update(level);
         
         assertEquals(29, p.getX());
         
         p.setVelocity(8);
         
         p.setDirection(Direction.LEFT);
-        p.update();
+        p.update(level);
         
         assertEquals(21, p.getX());
         
         p.setDirection(Direction.DOWN);
-        p.update();
+        p.update(level);
         
         assertEquals(53, p.getY());
     }

@@ -1,6 +1,7 @@
 package pacman.framework;
 
 import java.awt.Graphics;
+import pacman.game.Level;
 
 public abstract class GameObject {
     
@@ -17,7 +18,7 @@ public abstract class GameObject {
         this.y = y;
     }
     
-    public abstract void update();
+    public abstract void update(Level level);
     public abstract void render(Graphics g);
     
     public void setWidth(int width) {

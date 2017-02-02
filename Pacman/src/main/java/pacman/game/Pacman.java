@@ -11,20 +11,32 @@ public class Pacman extends Canvas implements Runnable {
     
     public static final int WIDTH = 672;
     public static final int HEIGHT = 744;
+    public static final int TILE_WIDTH = 24;
+    public static final int TILE_HEIGHT = 24;
     
     private Thread thread;
     private boolean running = false;
     
-    public static Player player;
+    private Level level;
+    
+    private Player player;
     
     public Pacman() {
-        new Window(WIDTH, HEIGHT, "Pacman", this);
+        new Window(WIDTH + 6, HEIGHT + 29, "Pacman", this); //joutui lisäämään +6 ja +29, koska ikkuna ei ollut oikean kokoinen jostain syystä
+    }
+    
+    public void setPlayer(Player player) { //tehdään pelaaja Level.java luokasta
+        this.player = player;
     }
     
     public void init() {
-        player = new Player(WIDTH / 2, HEIGHT / 2); //luodaan pelaaja
+        //tehdään taso kuvasta ja luodaan kaikki peliobjektit
+        level = new Level(28, 31);
+        level.loadLevelImage("/originalMap.png");
+        level.makeLevelFromImage(this);
         
         this.addKeyListener(new KeyInput(player)); //luodaan keyListener
+        running = true;
     }
     
     public synchronized void start() {
@@ -33,9 +45,9 @@ public class Pacman extends Canvas implements Runnable {
         }
         
         init(); //tehdään kartta ja luodaan peliobjektit ja keyListener
-        this.requestFocus(); //ei tarvitse erikseen klikata ikkunaa jotta kontrollit toimisivat
+        this.requestFocus(); //fokusoi ikkunan ettei tarvitse erikseen klikata ikkunaa jotta kontrollit toimisivat
         
-        running = true;
+        
         thread = new Thread(this);
         thread.start();
     }
@@ -83,7 +95,7 @@ public class Pacman extends Canvas implements Runnable {
     }
     
     private void update() {
-        player.update();
+        player.update(level);
     }
     
     private void render() {
@@ -98,6 +110,7 @@ public class Pacman extends Canvas implements Runnable {
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT); //musta tausta
         
+        level.render(g); //piirretään leveli
         player.render(g); //piirretään pelaaja
         //piirto loppuu tähän//
         g.dispose();

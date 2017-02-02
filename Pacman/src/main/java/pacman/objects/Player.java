@@ -4,6 +4,7 @@ import pacman.framework.GameObject;
 import java.awt.Color;
 import java.awt.Graphics;
 import pacman.framework.Direction;
+import pacman.game.Level;
 
 public class Player extends GameObject {
     
@@ -18,7 +19,7 @@ public class Player extends GameObject {
     }
     
     @Override
-    public void update() {
+    public void update(Level level) {
         if (direction == Direction.LEFT) {
             this.x -= velocity;
         } else if (direction == Direction.DOWN) {
