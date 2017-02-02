@@ -14,18 +14,18 @@ public class Player extends GameObject {
         
         velocity = 3;
         
-        this.direction = new Direction("left");
+        this.direction = Direction.LEFT;
     }
     
     @Override
     public void update() {
-        if (direction.equals("left")) {
+        if (direction == Direction.LEFT) {
             this.x -= velocity;
-        } else if (direction.equals("down")) {
+        } else if (direction == Direction.DOWN) {
             this.y += velocity;
-        } else if (direction.equals("right")) {
+        } else if (direction == Direction.RIGHT) {
             this.x += velocity;
-        } else if (direction.equals("up")) {
+        } else if (direction == Direction.UP) {
             this.y -= velocity;
         }
     }

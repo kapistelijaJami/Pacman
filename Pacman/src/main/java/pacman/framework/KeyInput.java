@@ -15,22 +15,20 @@ public class KeyInput extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         
-        Direction direction = player.getDirection();
-        
         if (key == KeyEvent.VK_LEFT) {
-            direction.setDirection("left");
+            player.setDirection(Direction.LEFT);
         }
         
         if (key == KeyEvent.VK_DOWN) {
-            direction.setDirection("down");
+            player.setDirection(Direction.DOWN);
         }
         
         if (key == KeyEvent.VK_RIGHT) {
-            direction.setDirection("right");
+            player.setDirection(Direction.RIGHT);
         }
         
         if (key == KeyEvent.VK_UP) {
-            direction.setDirection("up");
+            player.setDirection(Direction.UP);
         }
     }
     

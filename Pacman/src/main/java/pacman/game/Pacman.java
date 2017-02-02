@@ -73,7 +73,7 @@ public class Pacman extends Canvas implements Runnable {
             frames++;
             
             if (System.currentTimeMillis() - timer > 1000) { //jos on mennyt sekunti viime kerrasta (tänne pääsee siis sekunnin välein)
-                timer += 1000;
+                timer += 1000; //timer jahtaa currentTimeMillis funktiota
                 System.out.println("Updates: " + updates + ", Frames: " + frames); //näitä voi käyttää esim titlessä
                 frames = 0;
                 updates = 0;
@@ -96,9 +96,9 @@ public class Pacman extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         //piirrä tässä//
         g.setColor(Color.black);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.fillRect(0, 0, WIDTH, HEIGHT); //musta tausta
         
-        player.render(g);
+        player.render(g); //piirretään pelaaja
         //piirto loppuu tähän//
         g.dispose();
         bs.show();

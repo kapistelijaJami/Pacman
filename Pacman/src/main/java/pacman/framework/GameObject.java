@@ -40,6 +40,10 @@ public abstract class GameObject {
         return this.direction;
     }
     
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+    
     public void setVelocity(int velocity) {
         this.velocity = velocity;
     }

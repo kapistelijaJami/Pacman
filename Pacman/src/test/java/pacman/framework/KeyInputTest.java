@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import pacman.framework.KeyInput;
 import pacman.objects.Player;
 
 public class KeyInputTest {
@@ -51,24 +50,24 @@ public class KeyInputTest {
         
         input.keyPressed(e);
         
-        assertEquals("right", p.getDirection().getDirection());
+        assertEquals(Direction.RIGHT, p.getDirection());
         
         e = new KeyEvent(f, KeyEvent.VK_LEFT, System.currentTimeMillis(), 0, KeyEvent.VK_LEFT, 'Z');
         
         input.keyPressed(e);
         
-        assertEquals("left", p.getDirection().getDirection());
+        assertEquals(Direction.LEFT, p.getDirection());
         
         e = new KeyEvent(f, KeyEvent.VK_UP, System.currentTimeMillis(), 0, KeyEvent.VK_UP, 'Z');
         
         input.keyPressed(e);
         
-        assertEquals("up", p.getDirection().getDirection());
+        assertEquals(Direction.UP, p.getDirection());
         
         e = new KeyEvent(f, KeyEvent.VK_DOWN, System.currentTimeMillis(), 0, KeyEvent.VK_DOWN, 'Z');
         
         input.keyPressed(e);
         
-        assertEquals("down", p.getDirection().getDirection());
+        assertEquals(Direction.DOWN, p.getDirection());
     }
 }
