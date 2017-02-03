@@ -6,3 +6,4 @@ Päivä | Tunnit | Kuvaus
 27.01.2017 | 7h | Ohjelmoinnin jatkaminen, yksikkötestien tekeminen, kaiken dokumentaation päivittäminen ja uusien tekeminen
 02.02.2017 | 6h | Direction luokka muutettu enumiksi, sekä tehty kuva, jonka avulla luodaan kenttä. Kentän luominen myös toteutettu
 03.02.2017 | 5h | Pelaajan ohjaaminen ja törmääminen tehty, kääntyminen uusittu kokonaan, sekä syöminen lisätty
+03.02.2017 | 3h | Yksikkötestien tekeminen ja dokumentaation päivittäminen

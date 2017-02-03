@@ -4,8 +4,10 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public class Window {
+    private JFrame frame;
+    
     public Window(int width, int height, String title, Pacman game) {
-        JFrame frame = new JFrame(title);
+        frame = new JFrame(title);
         
         frame.setPreferredSize(new Dimension(width, height)); //laitetaan ikkunan koko
         frame.setMinimumSize(new Dimension(width, height));
@@ -17,7 +19,9 @@ public class Window {
         frame.add(game); //lisätään peli ikkunaan
         frame.pack(); //pakataan kaikki
         frame.setVisible(true); //laitetaan ikkuna näkyväksi
-        
-        game.start();
+    }
+    
+    public JFrame getFrame() {
+        return this.frame;
     }
 }

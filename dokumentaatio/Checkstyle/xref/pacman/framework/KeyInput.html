@@ -10,42 +10,37 @@
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> java.awt.event.KeyAdapter;
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> java.awt.event.KeyEvent;
-<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> pacman.objects.Player;
-<a class="jxr_linenumber" name="L6" href="#L6">6</a>   
-<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../pacman/framework/KeyInput.html">KeyInput</a> <strong class="jxr_keyword">extends</strong> KeyAdapter {
-<a class="jxr_linenumber" name="L8" href="#L8">8</a>       <strong class="jxr_keyword">private</strong> <a href="../../pacman/objects/Player.html">Player</a> player;
-<a class="jxr_linenumber" name="L9" href="#L9">9</a>       
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>      <strong class="jxr_keyword">public</strong> <a href="../../pacman/framework/KeyInput.html">KeyInput</a>(<a href="../../pacman/objects/Player.html">Player</a> player) {
-<a class="jxr_linenumber" name="L11" href="#L11">11</a>          <strong class="jxr_keyword">this</strong>.player = player;
-<a class="jxr_linenumber" name="L12" href="#L12">12</a>      }
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>      
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>      @Override
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> keyPressed(KeyEvent e) {
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>          <strong class="jxr_keyword">int</strong> key = e.getKeyCode();
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>          
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>          <a href="../../pacman/framework/Direction.html">Direction</a> direction = player.getDirection();
-<a class="jxr_linenumber" name="L19" href="#L19">19</a>          
-<a class="jxr_linenumber" name="L20" href="#L20">20</a>          <strong class="jxr_keyword">if</strong> (key == KeyEvent.VK_LEFT) {
-<a class="jxr_linenumber" name="L21" href="#L21">21</a>              direction.setDirection(<span class="jxr_string">"left"</span>);
-<a class="jxr_linenumber" name="L22" href="#L22">22</a>          }
-<a class="jxr_linenumber" name="L23" href="#L23">23</a>          
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>          <strong class="jxr_keyword">if</strong> (key == KeyEvent.VK_DOWN) {
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>              direction.setDirection(<span class="jxr_string">"down"</span>);
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>          }
-<a class="jxr_linenumber" name="L27" href="#L27">27</a>          
-<a class="jxr_linenumber" name="L28" href="#L28">28</a>          <strong class="jxr_keyword">if</strong> (key == KeyEvent.VK_RIGHT) {
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>              direction.setDirection(<span class="jxr_string">"right"</span>);
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>          }
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>          
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>          <strong class="jxr_keyword">if</strong> (key == KeyEvent.VK_UP) {
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>              direction.setDirection(<span class="jxr_string">"up"</span>);
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>          }
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>      }
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>      
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>      <strong class="jxr_keyword">public</strong> <a href="../../pacman/objects/Player.html">Player</a> getPlayer() {
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>          <strong class="jxr_keyword">return</strong> player;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>      }
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  }
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> pacman.game.Pacman;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> pacman.objects.Player;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../pacman/framework/KeyInput.html">KeyInput</a> <strong class="jxr_keyword">extends</strong> KeyAdapter {
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>       <strong class="jxr_keyword">private</strong> <a href="../../pacman/objects/Player.html">Player</a> player;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>      
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>      <strong class="jxr_keyword">public</strong> <a href="../../pacman/framework/KeyInput.html">KeyInput</a>(<a href="../../pacman/objects/Player.html">Player</a> player) {
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>          <strong class="jxr_keyword">this</strong>.player = player;
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>      }
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>      
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>      @Override
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> keyPressed(KeyEvent e) {
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>          <strong class="jxr_keyword">int</strong> key = e.getKeyCode();
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>          
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>          <strong class="jxr_keyword">if</strong> (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>              player.setNextDirection(Direction.LEFT);
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>              player.setNextDirection(Direction.DOWN);
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>              player.setNextDirection(Direction.RIGHT);
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>              player.setNextDirection(Direction.UP);
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>          } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_SPACE) { <em class="jxr_comment">//pause ja unpause</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>              Pacman.paused = !Pacman.paused;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>          }
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>      }
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>      
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      <strong class="jxr_keyword">public</strong> <a href="../../pacman/objects/Player.html">Player</a> getPlayer() {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>          <strong class="jxr_keyword">return</strong> player;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      }
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2017. All rights reserved.</div>

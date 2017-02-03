@@ -18,21 +18,13 @@ public class KeyInput extends KeyAdapter {
         
         if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
             player.setNextDirection(Direction.LEFT);
-        }
-        
-        if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
+        } else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
             player.setNextDirection(Direction.DOWN);
-        }
-        
-        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
+        } else if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
             player.setNextDirection(Direction.RIGHT);
-        }
-        
-        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
+        } else if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
             player.setNextDirection(Direction.UP);
-        }
-        
-        if (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_SPACE) { //pause ja unpause
+        } else if (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_SPACE) { //pause ja unpause
             Pacman.paused = !Pacman.paused;
         }
     }

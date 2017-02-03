@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import javax.swing.JFrame;
 import pacman.framework.KeyInput;
 import pacman.objects.Player;
 
@@ -20,15 +21,21 @@ public class Pacman extends Canvas implements Runnable {
     private boolean running = false;
     
     private Level level;
+    private JFrame frame;
     
     private Player player;
     
     public Pacman() {
-        new Window(WIDTH + 6, HEIGHT + 29, "Pacman", this); //joutui lisäämään +6 ja +29, koska ikkuna ei ollut oikean kokoinen jostain syystä
+        Window window = new Window(WIDTH + 6, HEIGHT + 29, "Pacman", this); //joutui lisäämään +6 ja +29, koska ikkuna ei ollut oikean kokoinen jostain syystä
+        this.frame = window.getFrame();
     }
     
     public void setPlayer(Player player) { //tehdään pelaaja Level.java luokasta
         this.player = player;
+    }
+    
+    public Level getLevel() {
+        return this.level;
     }
     
     public void init() {
@@ -89,6 +96,7 @@ public class Pacman extends Canvas implements Runnable {
             if (System.currentTimeMillis() - timer > 1000) { //jos on mennyt sekunti viime kerrasta (tänne pääsee siis sekunnin välein)
                 timer += 1000; //timer jahtaa currentTimeMillis funktiota
                 System.out.println("Updates: " + updates + ", Frames: " + frames); //näitä voi käyttää esim titlessä
+                this.frame.setTitle("Pacman " + "Updates: " + updates + ", Frames: " + frames);
                 frames = 0;
                 updates = 0;
             }

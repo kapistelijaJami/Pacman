@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import pacman.game.Pacman;
 import pacman.objects.Player;
 
 public class KeyInputTest {
@@ -54,20 +55,39 @@ public class KeyInputTest {
         
         e = new KeyEvent(f, KeyEvent.VK_LEFT, System.currentTimeMillis(), 0, KeyEvent.VK_LEFT, 'Z');
         
+        p.setNextDirection(Direction.RIGHT);
         input.keyPressed(e);
         
         assertEquals(Direction.LEFT, p.getNextDirection());
         
         e = new KeyEvent(f, KeyEvent.VK_UP, System.currentTimeMillis(), 0, KeyEvent.VK_UP, 'Z');
-        
         input.keyPressed(e);
         
         assertEquals(Direction.UP, p.getNextDirection());
         
         e = new KeyEvent(f, KeyEvent.VK_DOWN, System.currentTimeMillis(), 0, KeyEvent.VK_DOWN, 'Z');
-        
         input.keyPressed(e);
         
         assertEquals(Direction.DOWN, p.getNextDirection());
+        
+        e = new KeyEvent(f, KeyEvent.VK_ENTER, System.currentTimeMillis(), 0, KeyEvent.VK_ENTER, 'Z');
+        
+        Pacman.paused = false;
+        input.keyPressed(e);
+        assertTrue(Pacman.paused);
+        
+        Pacman.paused = true;
+        input.keyPressed(e);
+        assertFalse(Pacman.paused);
+        
+        e = new KeyEvent(f, KeyEvent.VK_SPACE, System.currentTimeMillis(), 0, KeyEvent.VK_SPACE, 'Z');
+        
+        Pacman.paused = false;
+        input.keyPressed(e);
+        assertTrue(Pacman.paused);
+        
+        Pacman.paused = true;
+        input.keyPressed(e);
+        assertFalse(Pacman.paused);
     }
 }

@@ -22,7 +22,7 @@ public class Tile {
         
         this.isWall = false;
         this.isFood = false;
-        this.isEnergizer = false;
+        this.isEnergizer = false; //eli se iso pallo
     }
     
     public void setIsWall(boolean isWall) {
@@ -47,10 +47,6 @@ public class Tile {
     
     public boolean isEnergizer() {
         return this.isEnergizer;
-    }
-    
-    public void update() {
-        
     }
     
     public void render(Graphics g) {

@@ -2,6 +2,7 @@ package pacman.game;
 
 public class Main {
     public static void main(String[] args) {
-        new Pacman();
+        Pacman game = new Pacman();
+        game.start();
     }
 }

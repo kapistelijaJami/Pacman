@@ -3,7 +3,7 @@ package pacman.game;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import pacman.framework.Tile;
-import pacman.image_handling.ImageLoader;
+import pacman.imagehandling.ImageLoader;
 import pacman.objects.Player;
 
 public class Level {
@@ -77,6 +77,12 @@ public class Level {
                 //PLAYER
                 if (red == 255 && green == 255 && blue == 0) {
                     game.setPlayer(new Player(xx * Pacman.TILE_WIDTH + Pacman.TILE_WIDTH / 2, yy * Pacman.TILE_HEIGHT)); //luodaan pelaaja
+                }
+                
+                
+                //JOS EI OLLUT MIKÄÄN ERIKOINEN TILE, TAI LUOTIIN JOTAIN MUUTA, KUTEN PLAYER, NIIN TEHDÄÄN TYHJÄ TILE TÄSSÄ
+                if (tiles[yy][xx] == null) {
+                    tiles[yy][xx] = new Tile(xx * Pacman.TILE_WIDTH, yy * Pacman.TILE_HEIGHT); //tehdään tyhjä tile
                 }
             }
         }

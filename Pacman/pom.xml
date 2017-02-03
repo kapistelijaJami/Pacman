@@ -41,10 +41,14 @@
                     <targetClasses>
                         <param>pacman.framework.*</param>
                         <param>pacman.objects.*</param>
+                        <!--tarkista että nämä luokat on aina ajantasalla-->
+                        <param>pacman.game.Level</param>
+                        <param>pacman.game.Pacman</param>
                     </targetClasses>
                     <targetTests>
                         <param>pacman.framework.*</param>
                         <param>pacman.objects.*</param>
+                        <param>pacman.game.*</param>
                     </targetTests>
                 </configuration>
             </plugin>
