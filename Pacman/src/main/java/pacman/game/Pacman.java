@@ -14,6 +14,8 @@ public class Pacman extends Canvas implements Runnable {
     public static final int TILE_WIDTH = 24;
     public static final int TILE_HEIGHT = 24;
     
+    public static boolean paused = false; //Lähtee käyntiin Enteriä tai Välilyöntiä painamalla
+    
     private Thread thread;
     private boolean running = false;
     
@@ -95,7 +97,9 @@ public class Pacman extends Canvas implements Runnable {
     }
     
     private void update() {
-        player.update(level);
+        if (!paused) {
+            player.update(level);
+        }
     }
     
     private void render() {

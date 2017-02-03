@@ -50,24 +50,24 @@ public class KeyInputTest {
         
         input.keyPressed(e);
         
-        assertEquals(Direction.RIGHT, p.getDirection());
+        assertEquals(Direction.RIGHT, p.getNextDirection());
         
         e = new KeyEvent(f, KeyEvent.VK_LEFT, System.currentTimeMillis(), 0, KeyEvent.VK_LEFT, 'Z');
         
         input.keyPressed(e);
         
-        assertEquals(Direction.LEFT, p.getDirection());
+        assertEquals(Direction.LEFT, p.getNextDirection());
         
         e = new KeyEvent(f, KeyEvent.VK_UP, System.currentTimeMillis(), 0, KeyEvent.VK_UP, 'Z');
         
         input.keyPressed(e);
         
-        assertEquals(Direction.UP, p.getDirection());
+        assertEquals(Direction.UP, p.getNextDirection());
         
         e = new KeyEvent(f, KeyEvent.VK_DOWN, System.currentTimeMillis(), 0, KeyEvent.VK_DOWN, 'Z');
         
         input.keyPressed(e);
         
-        assertEquals(Direction.DOWN, p.getDirection());
+        assertEquals(Direction.DOWN, p.getNextDirection());
     }
 }

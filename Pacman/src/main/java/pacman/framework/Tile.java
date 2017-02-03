@@ -37,6 +37,18 @@ public class Tile {
         this.isEnergizer = isEnergizer;
     }
     
+    public boolean isWall() {
+        return this.isWall;
+    }
+    
+    public boolean isFood() {
+        return this.isFood;
+    }
+    
+    public boolean isEnergizer() {
+        return this.isEnergizer;
+    }
+    
     public void update() {
         
     }
