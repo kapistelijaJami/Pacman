@@ -1,1 +1,0 @@
-Vaikuttais siltä että checkstyle testaus ei toiminu, ainakaan en saanu minkäännäköistä raporttia. En osannut korjata ongelmaa.
