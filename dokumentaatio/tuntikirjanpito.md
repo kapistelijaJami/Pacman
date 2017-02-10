@@ -7,3 +7,5 @@ Päivä | Tunnit | Kuvaus
 02.02.2017 | 6h | Direction luokka muutettu enumiksi, sekä tehty kuva, jonka avulla luodaan kenttä. Kentän luominen myös toteutettu
 03.02.2017 | 5h | Pelaajan ohjaaminen ja törmääminen tehty, kääntyminen uusittu kokonaan, sekä syöminen lisätty
 03.02.2017 | 3h | Yksikkötestien tekeminen ja dokumentaation päivittäminen
+09.02.2017 | 4h | Kentän luomisen parantaminen ja reunat luovan koodin tekeminen. Myös 2 uutta kenttää tehty
+10.02.2017 | 6h | Haamujen koodaamisen aloittaminen, yksikkötestien ja JavaDocien tekeminen sekä pit- ja checkstyle raporttien luominen. Luokkakaavio tehty myös uudestaan ja muun dokumentaation päivittäminen

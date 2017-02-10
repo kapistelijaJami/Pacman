@@ -50,9 +50,28 @@ public class TileTest {
     }
     
     @Test
+    public void isCornerTileTest() {
+        Tile tile = new Tile(4, 6);
+        assertFalse(tile.isCornerTile());
+        
+        tile.setIsCornerTile(true);
+        assertTrue(tile.isCornerTile());
+    }
+    
+    @Test
+    public void isGhostHatchTest() {
+        Tile tile = new Tile(4, 6);
+        assertFalse(tile.isGhostHatch());
+        
+        tile.setIsGhostHatch(true);
+        assertTrue(tile.isGhostHatch());
+    }
+    
+    @Test
     public void renderTest() {
         Tile tile = new Tile(4, 6);
         Pacman game = new Pacman();
+        game.createWindow();
         game.createBufferStrategy(3);
         BufferStrategy bs = game.getBufferStrategy();
         

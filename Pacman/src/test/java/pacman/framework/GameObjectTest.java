@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import pacman.game.Level;
+import pacman.game.Pacman;
 import pacman.objects.Player;
 
 public class GameObjectTest {
@@ -61,5 +63,90 @@ public class GameObjectTest {
         
         p.setHeight(80);
         assertEquals(80, p.getHeight());
+    }
+    
+    @Test
+    public void getDirectionTest() {
+        Player p = new Player(10, 15);
+        p.setDirection(Direction.UP);
+        assertEquals(Direction.UP, p.getDirection());
+    }
+    
+    @Test
+    public void isPossibleToTurnTest() { //jaa tätä testiä osiin
+        Player p = new Player(2, 0);
+        p.setVelocity(3);
+        p.setDirection(Direction.LEFT);
+        
+        assertTrue(p.isPossibleToTurn());
+        
+        p = new Player(23, 0);
+        p.setVelocity(3);
+        p.setDirection(Direction.LEFT);
+        
+        assertFalse(p.isPossibleToTurn());
+        
+        p = new Player(3, 0);
+        p.setVelocity(3);
+        p.setDirection(Direction.LEFT);
+        
+        assertFalse(p.isPossibleToTurn());
+        
+        
+        p = new Player(0, 2);
+        p.setVelocity(3);
+        p.setDirection(Direction.UP);
+        
+        assertTrue(p.isPossibleToTurn());
+        
+        p = new Player(0, 3);
+        p.setVelocity(3);
+        p.setDirection(Direction.UP);
+        
+        assertFalse(p.isPossibleToTurn());
+        
+        p = new Player(0, 0);
+        p.setVelocity(3);
+        p.setDirection(Direction.UP);
+        
+        assertTrue(p.isPossibleToTurn());
+        
+        
+        p = new Player(22, 0);
+        p.setVelocity(3);
+        p.setDirection(Direction.RIGHT);
+        
+        assertTrue(p.isPossibleToTurn());
+        
+        p = new Player(21, 0);
+        p.setVelocity(3);
+        p.setDirection(Direction.RIGHT);
+        
+        assertFalse(p.isPossibleToTurn());
+        
+        p = new Player(0, 0);
+        p.setVelocity(3);
+        p.setDirection(Direction.RIGHT);
+        
+        assertTrue(p.isPossibleToTurn());
+        
+        
+        p = new Player(0, 22);
+        p.setVelocity(3);
+        p.setDirection(Direction.DOWN);
+        
+        assertTrue(p.isPossibleToTurn());
+        
+        p = new Player(0, 21);
+        p.setVelocity(3);
+        p.setDirection(Direction.DOWN);
+        
+        assertFalse(p.isPossibleToTurn());
+        
+        p = new Player(0, 24);
+        p.setVelocity(3);
+        p.setDirection(Direction.DOWN);
+        
+        assertTrue(p.isPossibleToTurn());
     }
 }

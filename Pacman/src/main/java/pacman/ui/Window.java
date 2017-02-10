@@ -1,8 +1,12 @@
-package pacman.game;
+package pacman.ui;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import pacman.game.Pacman;
 
+/**
+ * Luokka luo ikkunan, johon peli piirretään.
+ */
 public class Window {
     private JFrame frame;
     

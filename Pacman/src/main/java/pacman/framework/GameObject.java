@@ -2,7 +2,12 @@ package pacman.framework;
 
 import java.awt.Graphics;
 import pacman.game.Level;
+import pacman.game.Pacman;
 
+/**
+ * Luokka toimii pohjana kaikille peliobjekteille
+ * ja pitää kirjaa niiden sijainnista ja suunnasta.
+ */
 public abstract class GameObject {
     
     protected int x;
@@ -67,5 +72,105 @@ public abstract class GameObject {
     
     public void setY(int y) {
         this.y = y;
+    }
+    
+    public int getCenterCoordX() {
+        return this.x + Pacman.TILE_WIDTH / 2;
+    }
+    
+    public int getCenterCoordY() {
+        return this.y + Pacman.TILE_HEIGHT / 2;
+    }
+    
+    public int getCenterCoordX(int x) { //millä tahansa arvolla
+        return x + Pacman.TILE_WIDTH / 2;
+    }
+    
+    public int getCenterCoordY(int y) {
+        return y + Pacman.TILE_HEIGHT / 2;
+    }
+    
+    public boolean isPossibleToTurn() { //jos liikkuu tämän päivityksen aikana nykyisen Tilen keskikohdan yli, niin voi kääntyä
+        if (direction == Direction.LEFT) {
+            int newX = this.x - velocity;
+            if (getCenterCoordX() % Pacman.TILE_WIDTH >= Pacman.TILE_WIDTH / 2 && getCenterCoordX(newX) % Pacman.TILE_WIDTH < Pacman.TILE_WIDTH / 2) {
+                //pacmanin keskikohta ylittää tilen keskikohdan tällä päivityksellä
+                return true;
+            }
+        } else if (direction == Direction.DOWN) {
+            int newY = this.y + velocity;
+            if (getCenterCoordY() % Pacman.TILE_HEIGHT <= Pacman.TILE_HEIGHT / 2 && getCenterCoordY(newY) % Pacman.TILE_HEIGHT > Pacman.TILE_HEIGHT / 2) {
+                return true;
+            }
+        } else if (direction == Direction.RIGHT) {
+            int newX = this.x + velocity;
+            if (getCenterCoordX() % Pacman.TILE_WIDTH <= Pacman.TILE_WIDTH / 2 && getCenterCoordX(newX) % Pacman.TILE_WIDTH > Pacman.TILE_WIDTH / 2) {
+                return true;
+            }
+        } else if (direction == Direction.UP) {
+            int newY = this.y - velocity;
+            if (getCenterCoordY() % Pacman.TILE_HEIGHT >= Pacman.TILE_HEIGHT / 2 && getCenterCoordY(newY) % Pacman.TILE_HEIGHT < Pacman.TILE_HEIGHT / 2) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public void moveAndCollide(Tile[][] tiles) {
+        if (direction == Direction.LEFT) {
+            this.x -= velocity;
+            if (this.x <= 0 && this.x > -1 * (Pacman.TILE_WIDTH / 2)) { //ollaan menossa yli laidan tunnelissa
+                return;
+            } else if (this.x < 0 && this.x <= -1 * (Pacman.TILE_WIDTH / 2)) { //ollaan jo yli laidan tunnelissa
+                this.x = Pacman.TILE_WIDTH * 27;
+                return;
+            }
+            
+            int nextTileCoordX = (getCenterCoordX() - Pacman.TILE_WIDTH / 2) / Pacman.TILE_WIDTH;
+            
+            Tile nextTile = tiles[getCenterCoordY() / Pacman.TILE_HEIGHT][nextTileCoordX];
+            
+            if (nextTile != null && nextTile.isWall()) {
+                this.x = (nextTileCoordX + 1) * Pacman.TILE_WIDTH; //vie pacmanin seinän oikealle puolelle
+            }
+        } else if (direction == Direction.DOWN) {
+            this.y += velocity;
+            
+            int nextTileCoordY = (getCenterCoordY() + Pacman.TILE_HEIGHT / 2 + 1) / Pacman.TILE_HEIGHT;
+            
+            Tile nextTile = tiles[nextTileCoordY][getCenterCoordX() / Pacman.TILE_WIDTH];
+            
+            if (nextTile != null && nextTile.isWall()) {
+                this.y = (nextTileCoordY - 1) * Pacman.TILE_WIDTH; //vie pacmanin seinän yläpuolelle
+            }
+        } else if (direction == Direction.RIGHT) {
+            this.x += velocity;
+            
+            if (this.x >= Pacman.TILE_WIDTH * 27 && this.x < Pacman.TILE_WIDTH * 28 - Pacman.TILE_WIDTH / 2) { //ollaan menossa yli laidan tunnelissa
+                return;
+            } else if (this.x >= Pacman.TILE_WIDTH * 28 - Pacman.TILE_WIDTH / 2) { //ollaan jo yli laidan tunnelissa
+                this.x = -1 * (Pacman.TILE_WIDTH / 2);
+                return;
+            }
+            
+            int nextTileCoordX = (getCenterCoordX() + Pacman.TILE_WIDTH / 2 + 1) / Pacman.TILE_WIDTH;
+            
+            Tile nextTile = tiles[getCenterCoordY() / Pacman.TILE_HEIGHT][nextTileCoordX];
+            
+            if (nextTile != null && nextTile.isWall()) {
+                this.x = (nextTileCoordX - 1) * Pacman.TILE_WIDTH; //vie pacmanin seinän oikealle puolelle
+            }
+        } else if (direction == Direction.UP) {
+            this.y -= velocity;
+            
+            int nextTileCoordY = (getCenterCoordY() - Pacman.TILE_HEIGHT / 2) / Pacman.TILE_HEIGHT;
+            
+            Tile nextTile = tiles[nextTileCoordY][getCenterCoordX() / Pacman.TILE_WIDTH];
+            
+            if (nextTile != null && nextTile.isWall()) {
+                this.y = (nextTileCoordY + 1) * Pacman.TILE_WIDTH; //vie pacmanin seinän alapuolelle
+            }
+        }
     }
 }

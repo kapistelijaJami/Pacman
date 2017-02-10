@@ -5,6 +5,9 @@ import java.awt.event.KeyEvent;
 import pacman.game.Pacman;
 import pacman.objects.Player;
 
+/**
+ * Luokka huolehtii käyttäjän näppäinpainalluksista, joilla pelaajaa ohjataan.
+ */
 public class KeyInput extends KeyAdapter {
     private Player player;
     
@@ -24,6 +27,7 @@ public class KeyInput extends KeyAdapter {
             player.setNextDirection(Direction.RIGHT);
         } else if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
             player.setNextDirection(Direction.UP);
+            
         } else if (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_SPACE) { //pause ja unpause
             Pacman.paused = !Pacman.paused;
         }

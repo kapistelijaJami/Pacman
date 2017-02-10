@@ -1,13 +1,19 @@
 package pacman.game;
 
+import pacman.ui.Window;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import pacman.framework.KeyInput;
+import pacman.objects.Ghost;
 import pacman.objects.Player;
 
+/**
+ * Luokka luo Pacman pelin ja alustaa sen kentän, peli-ikkunan ja peliobjektit, sekä siirtyy pelisilmukkaan.
+ * Pelisilmukasta kutsutaan update ja render metodeita, jotka päivittävät pelin ja piirtävät sen näkyville.
+ */
 public class Pacman extends Canvas implements Runnable {
     
     public static final int WIDTH = 672;
@@ -24,8 +30,13 @@ public class Pacman extends Canvas implements Runnable {
     private JFrame frame;
     
     private Player player;
+    private GhostHandler ghostHandler;
     
     public Pacman() {
+        ghostHandler = new GhostHandler(); //tehdään olio hallitsemaan haamuja
+    }
+    
+    public void createWindow() {
         Window window = new Window(WIDTH + 6, HEIGHT + 29, "Pacman", this); //joutui lisäämään +6 ja +29, koska ikkuna ei ollut oikean kokoinen jostain syystä
         this.frame = window.getFrame();
     }
@@ -34,20 +45,38 @@ public class Pacman extends Canvas implements Runnable {
         this.player = player;
     }
     
+    public Player getPlayer() {
+        return player;
+    }
+    
+    public void setGhost(int i, Ghost ghost) {
+        ghostHandler.setGhost(i, ghost);
+    }
+    
+    public GhostHandler getGhostHandler() {
+        return this.ghostHandler;
+    }
+    
     public Level getLevel() {
         return this.level;
     }
     
+    /**
+     * Metodi tekee tason kuvasta ja luo kaikki peliobjektit, sekä keyListener.
+     */
     public void init() {
         //tehdään taso kuvasta ja luodaan kaikki peliobjektit
         level = new Level(28, 31);
-        level.loadLevelImage("/originalMap.png");
+        level.loadLevelImage("/originalMap.png"); //Vaihtoehdot: "/originalMap.png", "/msPacmanMap.png", "/omaMap.png"
         level.makeLevelFromImage(this);
         
         this.addKeyListener(new KeyInput(player)); //luodaan keyListener
         running = true;
     }
     
+    /**
+     * Metodi käynnistää threadin ja kutsuu run -metodia.
+     */
     public synchronized void start() {
         if (running) {
             return;
@@ -56,11 +85,13 @@ public class Pacman extends Canvas implements Runnable {
         init(); //tehdään kartta ja luodaan peliobjektit ja keyListener
         this.requestFocus(); //fokusoi ikkunan ettei tarvitse erikseen klikata ikkunaa jotta kontrollit toimisivat
         
-        
         thread = new Thread(this);
         thread.start();
     }
     
+    /**
+     * Metodi pysäyttää threadin.
+     */
     public synchronized void stop() {
         try {
             thread.join(); //pysäyttää threadin
@@ -68,7 +99,11 @@ public class Pacman extends Canvas implements Runnable {
         } catch (Exception e) {
         }
     }
-
+    
+    /**
+     * Metodi alustaa pelisilmukan muuttujat ja käynnistää silmukan,
+     * jossa kutsutaan update ja render -metodeita.
+     */
     @Override
     public void run() {
         long timer = System.currentTimeMillis();
@@ -104,12 +139,18 @@ public class Pacman extends Canvas implements Runnable {
         stop();
     }
     
+    /**
+     * Metodi päivittää pelin tilannetta.
+     */
     private void update() {
         if (!paused) {
             player.update(level);
         }
     }
     
+    /**
+     * Metodi piirtää kentän ja peliobjektit.
+     */
     private void render() {
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
@@ -123,6 +164,7 @@ public class Pacman extends Canvas implements Runnable {
         g.fillRect(0, 0, WIDTH, HEIGHT); //musta tausta
         
         level.render(g); //piirretään leveli
+        ghostHandler.render(g); //piirretään haamut
         player.render(g); //piirretään pelaaja
         //piirto loppuu tähän//
         g.dispose();
