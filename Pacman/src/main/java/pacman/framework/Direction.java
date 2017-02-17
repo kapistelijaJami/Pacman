@@ -33,4 +33,28 @@ public enum Direction {
             return DOWN;
         }
     }
+    
+    public int getCorrespondingNumber() {
+        if (this == UP) {
+            return 0;
+        } else if (this == LEFT) {
+            return 1;
+        } else if (this == DOWN) {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
+    
+    public static Direction getCorrespondingDirection(int number) {
+        if (number == 0) {
+            return UP;
+        } else if (number == 1) {
+            return LEFT;
+        } else if (number == 2) {
+            return DOWN;
+        } else {
+            return RIGHT;
+        }
+    }
 }

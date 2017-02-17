@@ -1,8 +1,11 @@
 package pacman.framework;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import pacman.game.Level;
 import pacman.game.Pacman;
+import pacman.objects.Ghost;
+import pacman.objects.Player;
 
 /**
  * Luokka toimii pohjana kaikille peliobjekteille
@@ -93,8 +96,9 @@ public abstract class GameObject {
     public boolean isPossibleToTurn() { //jos liikkuu tämän päivityksen aikana nykyisen Tilen keskikohdan yli, niin voi kääntyä
         if (direction == Direction.LEFT) {
             int newX = this.x - velocity;
+            //if (keskikohdan oikealla puolella ennen päivitystä && keskikohdan vasemmalla puolella päivityksen jälkeen)
             if (getCenterCoordX() % Pacman.TILE_WIDTH >= Pacman.TILE_WIDTH / 2 && getCenterCoordX(newX) % Pacman.TILE_WIDTH < Pacman.TILE_WIDTH / 2) {
-                //pacmanin keskikohta ylittää tilen keskikohdan tällä päivityksellä
+                //keskikohta ylittää tilen keskikohdan tällä päivityksellä
                 return true;
             }
         } else if (direction == Direction.DOWN) {
@@ -154,12 +158,16 @@ public abstract class GameObject {
                 return;
             }
             
-            int nextTileCoordX = (getCenterCoordX() + Pacman.TILE_WIDTH / 2 + 1) / Pacman.TILE_WIDTH;
+            int nextTileCoordX = (getCenterCoordX() + Pacman.TILE_WIDTH / 2) / Pacman.TILE_WIDTH;
             
-            Tile nextTile = tiles[getCenterCoordY() / Pacman.TILE_HEIGHT][nextTileCoordX];
-            
+            Tile nextTile = null;
+            try {
+                nextTile = tiles[getCenterCoordY() / Pacman.TILE_HEIGHT][nextTileCoordX];
+            } catch (Exception e) {
+                System.out.println("prkl");
+            }
             if (nextTile != null && nextTile.isWall()) {
-                this.x = (nextTileCoordX - 1) * Pacman.TILE_WIDTH; //vie pacmanin seinän oikealle puolelle
+                this.x = (nextTileCoordX - 1) * Pacman.TILE_WIDTH; //vie pacmanin seinän vasemmalle puolelle
             }
         } else if (direction == Direction.UP) {
             this.y -= velocity;

@@ -182,6 +182,8 @@ public class PlayerTest {
         Pacman game = new Pacman();
         level.makeLevelFromImage(game);
         
+        p.setGame(game);
+        
         Tile[][] tiles = level.getTiles();
         
         p.collision(level);

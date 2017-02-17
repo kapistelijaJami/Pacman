@@ -149,4 +149,11 @@ public class Tile {
             g.fillRect(x + Pacman.TILE_HEIGHT / 2, y + Pacman.TILE_HEIGHT / 2, Pacman.TILE_WIDTH / 2, 2); //RIGHT
         }
     }
+    
+    public double distance(Tile other) { //lasketaan pythagoraan lauseella
+        double distanceX = Math.pow(Math.abs(this.x / width - other.x / width), 2); // x^2
+        double distanceY = Math.pow(Math.abs(this.y / height - other.y / height), 2); // y^2
+        
+        return Math.sqrt(distanceX + distanceY); //sqrt(x^2 + y^2) = hypotenuusa
+    }
 }

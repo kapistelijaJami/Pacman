@@ -15,6 +15,7 @@ import pacman.game.Pacman;
 public class Player extends GameObject {
     
     private Direction nextDirection;
+    private Pacman game;
     
     public Player(int x, int y) {
         super(x, y);
@@ -25,6 +26,10 @@ public class Player extends GameObject {
         
         this.direction = Direction.LEFT;
         this.nextDirection = this.direction;
+    }
+    
+    public void setGame(Pacman game) {
+        this.game = game;
     }
     
     public void setNextDirection(Direction nextDir) {
@@ -78,6 +83,7 @@ public class Player extends GameObject {
             tile.setIsFood(false);
         } else if (tile.isEnergizer()) {
             tile.setIsEnergizer(false);
+            game.getGhostHandler().extendFrightened();
         }
     }
     

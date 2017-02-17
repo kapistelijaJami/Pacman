@@ -21,7 +21,7 @@ public class Pacman extends Canvas implements Runnable {
     public static final int TILE_WIDTH = 24;
     public static final int TILE_HEIGHT = 24;
     
-    public static boolean paused = false; //Lähtee käyntiin Enteriä tai Välilyöntiä painamalla
+    public static boolean paused = true; //Lähtee käyntiin Enteriä tai Välilyöntiä painamalla
     
     private Thread thread;
     private boolean running = false;
@@ -32,12 +32,18 @@ public class Pacman extends Canvas implements Runnable {
     private Player player;
     private GhostHandler ghostHandler;
     
+    public static double updatesPerSecond = 60.0;
+    private int gameUpdates;
+    
+    public static int frightenedTime = (int) updatesPerSecond * 7; //päivitykset * sekunnit
+    
+
     public Pacman() {
         ghostHandler = new GhostHandler(); //tehdään olio hallitsemaan haamuja
     }
     
-    public void createWindow() {
-        Window window = new Window(WIDTH + 6, HEIGHT + 29, "Pacman", this); //joutui lisäämään +6 ja +29, koska ikkuna ei ollut oikean kokoinen jostain syystä
+    public void createWindow() { //+40px korkeuteen, koska alas tulee pisteet ainakin
+        Window window = new Window(WIDTH + 6, HEIGHT + 69, "Pacman", this); //joutui lisäämään +6 ja +29, koska ikkuna ei ollut oikean kokoinen jostain syystä
         this.frame = window.getFrame();
     }
     
@@ -57,6 +63,10 @@ public class Pacman extends Canvas implements Runnable {
         return this.ghostHandler;
     }
     
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+    
     public Level getLevel() {
         return this.level;
     }
@@ -69,6 +79,11 @@ public class Pacman extends Canvas implements Runnable {
         level = new Level(28, 31);
         level.loadLevelImage("/originalMap.png"); //Vaihtoehdot: "/originalMap.png", "/msPacmanMap.png", "/omaMap.png"
         level.makeLevelFromImage(this);
+        
+        gameUpdates = 0;
+        
+        player.setGame(this); //annetaan pelaajalle peli
+        ghostHandler.setGame(this); //annetaan haamuille peli, jota ne tarvitsee esim targetin etsintään
         
         this.addKeyListener(new KeyInput(player)); //luodaan keyListener
         running = true;
@@ -108,7 +123,6 @@ public class Pacman extends Canvas implements Runnable {
     public void run() {
         long timer = System.currentTimeMillis();
         long lastTime = System.nanoTime();
-        double updatesPerSecond = 60.0;
         double nanoSecondsPerUpdate = 1000000000 / updatesPerSecond; //päivitysten väliin tarvittavat nanosekunnit
         double delta = 0; //nanosekuntien määrä suhteessa päivitykseen tarvittaviin nanosekunteihin, kun 1, niin tehdään päivitys
         
@@ -116,6 +130,8 @@ public class Pacman extends Canvas implements Runnable {
         int frames = 0; //renderöintien määrä sekunnissa
         
         while (running) { //pelisilmukka
+            /*update();
+            render();*/
             long now = System.nanoTime();
             delta += (now - lastTime) / nanoSecondsPerUpdate; //deltaan lisätään loopiin kuluneet nanosekunnit per päivitykseen tarvittavat nanosekunnit
             lastTime = now;
@@ -123,10 +139,10 @@ public class Pacman extends Canvas implements Runnable {
             while (delta >= 1) { //deltan arvo on 1 kun on mennyt 1/updatesPerSecond sekuntia (eli 1/60)
                 update(); //päivitetään peliä
                 updates++;
+                render();
+                frames++;
                 delta--; //deltan arvoa miinustetaan yhdellä (eli putoaa hyvin lähelle lukua 0)
             }
-            render();
-            frames++;
             
             if (System.currentTimeMillis() - timer > 1000) { //jos on mennyt sekunti viime kerrasta (tänne pääsee siis sekunnin välein)
                 timer += 1000; //timer jahtaa currentTimeMillis funktiota
@@ -144,7 +160,10 @@ public class Pacman extends Canvas implements Runnable {
      */
     private void update() {
         if (!paused) {
+            ghostHandler.update(level);
             player.update(level);
+            
+            gameUpdates++;
         }
     }
     
@@ -161,7 +180,7 @@ public class Pacman extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         //piirrä tässä//
         g.setColor(Color.black);
-        g.fillRect(0, 0, WIDTH, HEIGHT); //musta tausta
+        g.fillRect(0, 0, WIDTH, HEIGHT + 40); //musta tausta
         
         level.render(g); //piirretään leveli
         ghostHandler.render(g); //piirretään haamut

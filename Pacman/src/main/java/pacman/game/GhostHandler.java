@@ -2,6 +2,7 @@ package pacman.game;
 
 import java.awt.Graphics;
 import pacman.objects.Ghost;
+import pacman.objects.Player;
 
 public class GhostHandler {
     private Ghost[] ghosts;
@@ -28,8 +29,22 @@ public class GhostHandler {
         return ghosts;
     }
     
-    public void update() {
-        
+    public void setGame(Pacman game) {
+        for (Ghost ghost : ghosts) {
+            ghost.setGame(game);
+        }
+    }
+    
+    public void extendFrightened() {
+        for (Ghost ghost : ghosts) {
+            ghost.extendFrightened();
+        }
+    }
+    
+    public void update(Level level) {
+        for (Ghost ghost : ghosts) {
+            ghost.update(level);
+        }
     }
     
     public void render(Graphics g) {
