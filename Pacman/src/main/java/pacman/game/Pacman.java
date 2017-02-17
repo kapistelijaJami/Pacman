@@ -175,10 +175,6 @@ public class Pacman extends Canvas implements Runnable {
                 this.frame.setTitle("Pacman " + "Updates: " + updates + ", Frames: " + frames);
                 frames = 0;
                 updates = 0;
-                
-                //testiä
-                Tile testitile = ghostHandler.getGhost(1).getTargetTile(level);
-                System.out.println((testitile.getX() / TILE_WIDTH) + ":" + (testitile.getY() / TILE_HEIGHT));
             }
         }
         stop();
