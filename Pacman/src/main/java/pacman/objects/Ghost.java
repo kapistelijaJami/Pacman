@@ -27,6 +27,9 @@ public class Ghost extends GameObject {
     private boolean frightened;
     private int frightenedCounter;
     private boolean dead;
+    
+    private boolean insideCage; //häkin sisällä
+    private boolean getOut; //haluaa häkistä ulos
 
     public Ghost(int x, int y) {
         super(x, y);
@@ -40,6 +43,8 @@ public class Ghost extends GameObject {
         
         frightened = false;
         dead = false;
+        getOut = false;
+        insideCage = true;
     }
     
     public void setColor(Color color) {
@@ -52,6 +57,40 @@ public class Ghost extends GameObject {
     
     public void setGame(Pacman game) {
         this.game = game;
+    }
+    
+    public void setInsideCage(boolean inside) {
+        this.insideCage = inside;
+    }
+    
+    public boolean getInsideCage() {
+        return this.insideCage;
+    }
+    
+    public void setGetOut(boolean getOut) {
+        this.getOut = getOut;
+    }
+    
+    public boolean getGetOut() {
+        return this.getOut;
+    }
+    
+    public boolean isOnTargetTile(Level level) {
+        Tile target = getTargetTile(level);
+        Tile[][] tiles = level.getTiles();
+        
+        int ghostX = getCenterCoordX() / Pacman.TILE_WIDTH;
+        int ghostY = getCenterCoordY() / Pacman.TILE_HEIGHT;
+        
+        if (target == tiles[ghostY][ghostX]) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public boolean isFrightened() {
+        return frightened;
     }
     
     public void extendFrightened() {
@@ -71,7 +110,34 @@ public class Ghost extends GameObject {
         }
     }
     
-    public Tile getTargetTile(Tile[][] tiles) {
+    public Tile getTargetScatterTile(Tile[][] tiles) {
+        if (this.color == Color.red) {
+            return tiles[0][tiles[0].length - 1];
+        } else if (this.color == Color.pink) {
+            return tiles[0][0];
+        } else if (this.color == Color.cyan) {
+            return tiles[tiles.length - 1][tiles[0].length - 1];
+        } else {
+            return tiles[tiles.length - 1][0];
+        }
+    }
+    
+    public Tile getOutTargetTile(Level level) {
+        return level.getGetOutTile();
+    }
+    
+    public Tile getTargetTile(Level level) {
+        if (getOut) {
+            return getOutTargetTile(level);
+        }
+        
+        Tile[][] tiles = level.getTiles();
+        
+        if (game.getScatter()) {
+            return getTargetScatterTile(tiles);
+        }
+        
+        
         Player player = game.getPlayer();
         Tile playerTile = tiles[player.getCenterCoordY() / Pacman.TILE_HEIGHT][player.getCenterCoordX() / Pacman.TILE_WIDTH];
         
@@ -117,7 +183,8 @@ public class Ghost extends GameObject {
         return tiles[tiles.length - 1][0]; //vasen alakulma
     }
     
-    public void decideDirectionFrightened(Tile[][] tiles) {
+    public void decideDirectionFrightened(Level level) {
+        Tile[][] tiles = level.getTiles();
         int centerCoordX = getCenterCoordX();
         int centerCoordY = getCenterCoordY();
         
@@ -164,14 +231,17 @@ public class Ghost extends GameObject {
         direction = Direction.getCorrespondingDirection(number);
     }
     
-    public void decideDirection(Tile[][] tiles) {
+    public void decideDirection(Level level) {
         if (frightened) {
-            decideDirectionFrightened(tiles);
+            decideDirectionFrightened(level);
             return;
         }
+        
         HashMap<Direction, Double> distances = new HashMap<>();
         
-        Tile targetTile = getTargetTile(tiles);
+        Tile targetTile = getTargetTile(level);
+        
+        Tile[][] tiles = level.getTiles();
         
         int centerCoordX = getCenterCoordX();
         int centerCoordY = getCenterCoordY();
@@ -182,7 +252,7 @@ public class Ghost extends GameObject {
         
         if (tileY >= 0) {
             Tile tileUp = tiles[tileY / Pacman.TILE_HEIGHT][tileX / Pacman.TILE_WIDTH];
-            if (!tileUp.isWall()) {
+            if (!tileUp.isWall() || getOut && tileUp.isGhostHatch()) { //jos ylhäällä on ghostHatch ja halutaan ulos, niin valitaan se suunta
                 distances.put(Direction.UP, tileUp.distance(targetTile));
             }
         }
@@ -273,7 +343,7 @@ public class Ghost extends GameObject {
         }
         
         if (isPossibleToTurn()) { //päätä seuraava suunta
-            decideDirection(tiles);
+            decideDirection(level);
         }
         
         //LIIKKUMINEN JA TÖRMÄÄMINEN

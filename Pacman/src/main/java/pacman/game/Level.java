@@ -17,6 +17,7 @@ import pacman.objects.Player;
 public class Level {
     private Tile[][] tiles;
     private BufferedImage levelImage;
+    private Tile getOutTile;
     
     public Level(int width, int height) { //width ja height Tile koossa (ei pikseleissä)
         tiles = new Tile[height][width];
@@ -37,6 +38,10 @@ public class Level {
     
     public Tile[][] getTiles() {
         return this.tiles;
+    }
+    
+    public Tile getGetOutTile() {
+        return getOutTile;
     }
     
     /**
@@ -96,6 +101,11 @@ public class Level {
                     Ghost ghost = new Ghost(xx * Pacman.TILE_WIDTH + Pacman.TILE_WIDTH / 2, yy * Pacman.TILE_HEIGHT);
                     game.setGhost(0, ghost);
                     ghost.setColor(Color.red);
+                    ghost.setInsideCage(false);
+                    
+                    //tehdään tästä myös getOutTile
+                    tiles[yy][xx] = new Tile(xx * Pacman.TILE_WIDTH, yy * Pacman.TILE_HEIGHT); //tehdään tyhjä tile
+                    this.getOutTile = tiles[yy][xx];
                     
                 } else if (red == 255 && green == 130 && blue == 255) { //Pinky
                     Ghost ghost = new Ghost(xx * Pacman.TILE_WIDTH + Pacman.TILE_WIDTH / 2, yy * Pacman.TILE_HEIGHT);

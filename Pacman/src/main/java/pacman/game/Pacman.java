@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import pacman.framework.KeyInput;
+import pacman.framework.GameModeTimes;
+import pacman.framework.Tile;
 import pacman.objects.Ghost;
 import pacman.objects.Player;
 
@@ -36,6 +38,7 @@ public class Pacman extends Canvas implements Runnable {
     private int gameUpdates;
     
     public static int frightenedTime = (int) updatesPerSecond * 7; //päivitykset * sekunnit
+    private boolean scatter = true;
     
 
     public Pacman() {
@@ -43,7 +46,17 @@ public class Pacman extends Canvas implements Runnable {
     }
     
     public void createWindow() { //+40px korkeuteen, koska alas tulee pisteet ainakin
-        Window window = new Window(WIDTH + 6, HEIGHT + 69, "Pacman", this); //joutui lisäämään +6 ja +29, koska ikkuna ei ollut oikean kokoinen jostain syystä
+        String operatingSystem = System.getProperty("os.name");
+        
+        int moreX = 6;
+        int moreY = 69;
+        
+        if (operatingSystem.equals("Linux")) {
+            moreX = 0;
+            moreY = 40;
+        }
+        
+        Window window = new Window(WIDTH + moreX, HEIGHT + moreY, "Pacman", this); //joutui lisäämään +6 ja +29, koska ikkuna ei ollut oikean kokoinen jostain syystä
         this.frame = window.getFrame();
     }
     
@@ -69,6 +82,18 @@ public class Pacman extends Canvas implements Runnable {
     
     public Level getLevel() {
         return this.level;
+    }
+    
+    public boolean getScatter() {
+        return this.scatter;
+    }
+    
+    public void checkScatter() {
+        boolean newScatter = GameModeTimes.getScatter(gameUpdates);
+        if (scatter != newScatter) {
+            ghostHandler.oppositeDirection();
+        }
+        scatter = newScatter;
     }
     
     /**
@@ -150,6 +175,10 @@ public class Pacman extends Canvas implements Runnable {
                 this.frame.setTitle("Pacman " + "Updates: " + updates + ", Frames: " + frames);
                 frames = 0;
                 updates = 0;
+                
+                //testiä
+                Tile testitile = ghostHandler.getGhost(1).getTargetTile(level);
+                System.out.println((testitile.getX() / TILE_WIDTH) + ":" + (testitile.getY() / TILE_HEIGHT));
             }
         }
         stop();
@@ -160,6 +189,9 @@ public class Pacman extends Canvas implements Runnable {
      */
     private void update() {
         if (!paused) {
+            checkScatter();
+            ghostHandler.checkGetOut(level, gameUpdates);
+            
             ghostHandler.update(level);
             player.update(level);
             
@@ -182,9 +214,9 @@ public class Pacman extends Canvas implements Runnable {
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT + 40); //musta tausta
         
-        level.render(g); //piirretään leveli
-        ghostHandler.render(g); //piirretään haamut
-        player.render(g); //piirretään pelaaja
+        level.render(g);
+        ghostHandler.render(g);
+        player.render(g);
         //piirto loppuu tähän//
         g.dispose();
         bs.show();

@@ -176,6 +176,13 @@ public abstract class GameObject {
             
             Tile nextTile = tiles[nextTileCoordY][getCenterCoordX() / Pacman.TILE_WIDTH];
             
+            if (this.getClass() == Ghost.class) { //haamu
+                Ghost temp = (Ghost) this;
+                if (temp.getGetOut() && nextTile != null && nextTile.isGhostHatch()) {
+                    return;
+                }
+            }
+            
             if (nextTile != null && nextTile.isWall()) {
                 this.y = (nextTileCoordY + 1) * Pacman.TILE_WIDTH; //vie pacmanin seinän alapuolelle
             }

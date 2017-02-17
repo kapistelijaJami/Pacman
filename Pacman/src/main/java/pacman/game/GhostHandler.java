@@ -1,6 +1,7 @@
 package pacman.game;
 
 import java.awt.Graphics;
+import pacman.framework.GameModeTimes;
 import pacman.objects.Ghost;
 import pacman.objects.Player;
 
@@ -38,6 +39,29 @@ public class GhostHandler {
     public void extendFrightened() {
         for (Ghost ghost : ghosts) {
             ghost.extendFrightened();
+        }
+    }
+    
+    public void oppositeDirection() {
+        for (Ghost ghost : ghosts) {
+            if (!ghost.isFrightened()) {
+                ghost.setDirection(ghost.getDirection().opposite());
+            }
+        }
+    }
+    
+    public void checkGetOut(Level level, int updates) {
+        for (Ghost ghost : ghosts) {
+            if (ghost.getGetOut()) {
+                if (ghost.isOnTargetTile(level)) {
+                    ghost.setGetOut(false);
+                    ghost.setInsideCage(false);
+                }
+            }
+            
+            if (ghost.getInsideCage()) {
+                ghost.setGetOut(GameModeTimes.getGhostOut(ghost, updates));
+            }
         }
     }
     
