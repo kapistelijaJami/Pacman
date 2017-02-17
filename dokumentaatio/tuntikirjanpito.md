@@ -9,3 +9,5 @@ Päivä | Tunnit | Kuvaus
 03.02.2017 | 3h | Yksikkötestien tekeminen ja dokumentaation päivittäminen
 09.02.2017 | 4h | Kentän luomisen parantaminen ja reunat luovan koodin tekeminen. Myös 2 uutta kenttää tehty
 10.02.2017 | 6h | Haamujen koodaamisen aloittaminen, yksikkötestien ja JavaDocien tekeminen sekä pit- ja checkstyle raporttien luominen. Luokkakaavio tehty myös uudestaan ja muun dokumentaation päivittäminen
+16.02.2017 | 6h | Haamujen liikkuminen ja pacmanin seuraaminen
+17.02.2017 | 6h | Haamujen liikkeelle lähteminen häkistään, sekä scatter mode ja dokumentaatioita sekä sekvenssikaaviot

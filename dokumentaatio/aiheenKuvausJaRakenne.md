@@ -19,3 +19,7 @@ Jokaisesta syödystä pallosta saa 10 pistettä ja isosta pallosta 50 pistettä. Haa
 ### Luokkakaavio
 
 ![Luokkakaavio](images/Luokkakaavio.png)
+
+![Pelin aloittaminen](images/Pelin aloittaminen.png)
+
+![Huippupisteiden katsominen](images/Huippupisteiden katsominen.png)
