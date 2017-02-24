@@ -4,7 +4,17 @@ import java.awt.Color;
 import pacman.game.Pacman;
 import pacman.objects.Ghost;
 
+/**
+ * Luokka tietää pelin tilan muuttumiseen tarvittavat ajankohdat ja tarjoaa metodit pelin tilan tarkistamiseen.
+ */
 public class GameModeTimes {
+    
+    /**
+     * Metodi tarkistaa tuleeko pelitilan olla tällä päivityksellä scatter.
+     * 
+     * @param updates Missä vaiheessa peliä tällä hetkellä mennään
+     * @return tuleeko tällä päivityksellä olla scatter vai ei
+     */
     public static boolean getScatter(int updates) {
         double updatesPerSecond = Pacman.updatesPerSecond;
         if (updates <= updatesPerSecond * 7) { //7s
@@ -26,6 +36,13 @@ public class GameModeTimes {
         }
     }
     
+    /**
+     * Metodi tarkistaa milloin haamun tulee päästä häkistään ulos.
+     * 
+     * @param ghost Tarkistettava haamu
+     * @param updates Missä vaiheessa peliä tällä hetkellä mennään
+     * @return voiko haamun päästää jo häkistään ulos
+     */
     public static boolean getGhostOut(Ghost ghost, int updates) {
         double updatesPerSecond = Pacman.updatesPerSecond;
         if (ghost.getColor() == Color.cyan) {

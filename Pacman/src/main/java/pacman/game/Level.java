@@ -19,6 +19,11 @@ public class Level {
     private BufferedImage levelImage;
     private Tile getOutTile;
     
+    /**
+     * Konstruktori alustaa tiles taulukon.
+     * @param width Taulukon leveys (Tile koossa, eli kuinka monta tilea, ei pikseleissä)
+     * @param height Taulukon korkeus (Tile koossa, eli kuinka monta tilea, ei pikseleissä)
+     */
     public Level(int width, int height) { //width ja height Tile koossa (ei pikseleissä)
         tiles = new Tile[height][width];
     }
@@ -45,7 +50,7 @@ public class Level {
     }
     
     /**
-     * Metodi luo kentän kuvan avulla ja luo sen perusteella Tile-oliot.
+     * Metodi luo kentän kuvan avulla ja luo sen perusteella Tile-oliot, sekä peliobjektit.
      * @param game Pacman peli -olio
      */
     public void makeLevelFromImage(Pacman game) {
@@ -134,7 +139,7 @@ public class Level {
     }
     
     /**
-     * Metodi päättelee kulmapaloille viivojen suunnat.
+     * Metodi päättelee kulmapaloille viivojen suunnat ympärillä olevien seinien perusteella.
      */
     public void cornerTileLineDirection() {
         for (int y = 0; y < tiles.length; y++) {

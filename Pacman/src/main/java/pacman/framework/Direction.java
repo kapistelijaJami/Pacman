@@ -34,6 +34,11 @@ public enum Direction {
         }
     }
     
+    /**
+     * Metodi palauttaa suuntaa vastaavan numeron. (Ylös = 0, Vasen = 1, Alas = 2, Oikea = 3).
+     * 
+     * @return suuntaa vastaava numero
+     */
     public int getCorrespondingNumber() {
         if (this == UP) {
             return 0;
@@ -46,6 +51,12 @@ public enum Direction {
         }
     }
     
+    /**
+     * Metodi palauttaa numeroa vastaavan suunnan. (Ylös = 0, Vasen = 1, Alas = 2, Oikea = 3).
+     * 
+     * @param number numero, jota kysytään
+     * @return numeroa vastaava suunta
+     */
     public static Direction getCorrespondingDirection(int number) {
         if (number == 0) {
             return UP;

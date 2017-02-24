@@ -97,24 +97,23 @@ public class PlayerTest {
         level.loadLevelImage("/originalMap.png");
         Pacman game = new Pacman();
         level.makeLevelFromImage(game);
-        Tile[][] tiles = level.getTiles();
         
         Player p = new Player(13 * 24, 23 * 24);
         p.setDirection(Direction.LEFT);
         
         p.setNextDirection(Direction.UP);
-        assertTrue(p.nextDirectionIsWall(tiles));
+        assertTrue(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.DOWN);
-        assertTrue(p.nextDirectionIsWall(tiles));
+        assertTrue(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.LEFT);
         
         p.setVelocity(24);
         p.update(level);
         
         p.setNextDirection(Direction.UP);
-        assertFalse(p.nextDirectionIsWall(tiles));
+        assertFalse(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.DOWN);
-        assertTrue(p.nextDirectionIsWall(tiles));
+        assertTrue(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.RIGHT);
         
         p.setDirection(Direction.RIGHT);
@@ -122,17 +121,17 @@ public class PlayerTest {
         p.update(level);
         
         p.setNextDirection(Direction.UP);
-        assertFalse(p.nextDirectionIsWall(tiles));
+        assertFalse(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.DOWN);
-        assertTrue(p.nextDirectionIsWall(tiles));
+        assertTrue(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.RIGHT);
         
         p.setVelocity(23);
         p.update(level);
         p.setNextDirection(Direction.UP);
-        assertTrue(p.nextDirectionIsWall(tiles));
+        assertTrue(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.DOWN);
-        assertTrue(p.nextDirectionIsWall(tiles));
+        assertTrue(p.nextDirectionIsWall(level));
         
         
         
@@ -140,18 +139,18 @@ public class PlayerTest {
         p.setDirection(Direction.UP);
         
         p.setNextDirection(Direction.LEFT);
-        assertTrue(p.nextDirectionIsWall(tiles));
+        assertTrue(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.RIGHT);
-        assertTrue(p.nextDirectionIsWall(tiles));
+        assertTrue(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.UP);
         
         p.setVelocity(24);
         p.update(level);
         
         p.setNextDirection(Direction.LEFT);
-        assertFalse(p.nextDirectionIsWall(tiles));
+        assertFalse(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.RIGHT);
-        assertFalse(p.nextDirectionIsWall(tiles));
+        assertFalse(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.DOWN);
         
         p.setDirection(Direction.DOWN);
@@ -160,18 +159,18 @@ public class PlayerTest {
         p.update(level);
         
         p.setNextDirection(Direction.LEFT);
-        assertFalse(p.nextDirectionIsWall(tiles));
+        assertFalse(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.RIGHT);
-        assertFalse(p.nextDirectionIsWall(tiles));
+        assertFalse(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.DOWN);
         
         p.setVelocity(23);
         p.update(level);
         
         p.setNextDirection(Direction.LEFT);
-        assertTrue(p.nextDirectionIsWall(tiles));
+        assertTrue(p.nextDirectionIsWall(level));
         p.setNextDirection(Direction.RIGHT);
-        assertTrue(p.nextDirectionIsWall(tiles));
+        assertTrue(p.nextDirectionIsWall(level));
     }
     
     @Test

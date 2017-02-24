@@ -17,6 +17,11 @@ public class Player extends GameObject {
     private Direction nextDirection;
     private Pacman game;
     
+    /**
+     * Alustetaan muuttujat.
+     * @param x X-koordinaatti alussa
+     * @param y Y-koordinaatti alussa
+     */
     public Player(int x, int y) {
         super(x, y);
         width = 24;
@@ -40,7 +45,13 @@ public class Player extends GameObject {
         return this.nextDirection;
     }
     
-    public boolean nextDirectionIsWall(Tile[][] tiles) {
+    /**
+     * Metodi katsoo tuleeko seuraavaan suuntaan liikuttaessa seinä vastaan.
+     * @param level Pelikenttä
+     * @return Tuleeko seinä vastaan
+     */
+    public boolean nextDirectionIsWall(Level level) {
+        Tile[][] tiles = level.getTiles();
         if (nextDirection == Direction.LEFT) {
             Tile tile = tiles[getCenterCoordY() / Pacman.TILE_WIDTH][getCenterCoordX() / Pacman.TILE_WIDTH - 1];
             if (tile != null && tile.isWall()) {
@@ -66,6 +77,10 @@ public class Player extends GameObject {
         return false;
     }
     
+    /**
+     * Metodi tarkistaa törmääkö pelaaja syötävien kanssa, ja muokkaa niiden tilaa tarvittaessa.
+     * @param level Pelikenttä
+     */
     public void collision(Level level) {
         Tile[][] tiles = level.getTiles();
         
@@ -89,18 +104,17 @@ public class Player extends GameObject {
     
     @Override
     public void update(Level level) {
-        Tile[][] tiles = level.getTiles();
-        
         //VAIHDETAAN SUUNTAA
         if (direction.isOpposite(nextDirection)) { //tehdään U-käännös
             direction = nextDirection;
-        } else if (this.direction != this.nextDirection && isPossibleToTurn() && !nextDirectionIsWall(tiles)) { //käännytään
+        } else if (this.direction != this.nextDirection && isPossibleToTurn() && !nextDirectionIsWall(level)) { //käännytään
             direction = nextDirection;
         }
         
         //LIIKKUMINEN JA TÖRMÄÄMINEN
-        moveAndCollide(tiles); //tarkista vielä tunnelissa liikkuminen uudestaan
+        moveAndCollide(level); //tarkista vielä tunnelissa liikkuminen uudestaan
         
+        //SYÖDÄÄNKÖ JOTAIN
         collision(level);
     }
     

@@ -10,6 +10,13 @@ import pacman.game.Pacman;
 public class Window {
     private JFrame frame;
     
+    /**
+     * Metodi luo ikkunan ja alustaa sen muuttujat.
+     * @param width Ikkunan leveys
+     * @param height Ikkunan korkeus
+     * @param title Ikkunan otsikko
+     * @param game Pacman-olio
+     */
     public Window(int width, int height, String title, Pacman game) {
         frame = new JFrame(title);
         

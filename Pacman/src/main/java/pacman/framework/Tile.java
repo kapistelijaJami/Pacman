@@ -23,6 +23,11 @@ public class Tile {
     private WallLineDirection lineDirection;
     private boolean isCornerTile;
     
+    /**
+     * Alustetaan muuttujat.
+     * @param x X-koordinaatti alussa
+     * @param y Y-koordinaatti alussa
+     */
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
@@ -127,7 +132,7 @@ public class Tile {
     }
     
     /**
-     * Metodi piirtää kulman.
+     * Metodi piirtää kulman lineDirection -muuttujan perusteella.
      * 
      * @param g piirtämiseen tarvittava olio
      */
@@ -150,7 +155,12 @@ public class Tile {
         }
     }
     
-    public double distance(Tile other) { //lasketaan pythagoraan lauseella
+    /**
+     * Metodi laskee pythagoraan lauseella matkan kahden Tile -olion välillä.
+     * @param other Verrattava Tile -olio
+     * @return matka olioiden välillä
+     */
+    public double distance(Tile other) {
         double distanceX = Math.pow(Math.abs(this.x / width - other.x / width), 2); // x^2
         double distanceY = Math.pow(Math.abs(this.y / height - other.y / height), 2); // y^2
         

@@ -31,6 +31,11 @@ public class Ghost extends GameObject {
     private boolean insideCage; //häkin sisällä
     private boolean getOut; //haluaa häkistä ulos
 
+    /**
+     * Alustetaan muuttujat.
+     * @param x X-koordinaatti alussa
+     * @param y Y-koordinaatti alussa
+     */
     public Ghost(int x, int y) {
         super(x, y);
         
@@ -75,6 +80,11 @@ public class Ghost extends GameObject {
         return this.getOut;
     }
     
+    /**
+     * Metodi tarkistaa onko haamu nykyisen kohde-Tilen kohdalla.
+     * @param level Pelikenttä, jota käytetään targetin etsimisessä.
+     * @return Onko haamu nykyisen kohdepalan kohdalla
+     */
     public boolean isOnTargetTile(Level level) {
         Tile target = getTargetTile(level);
         Tile[][] tiles = level.getTiles();
@@ -93,6 +103,9 @@ public class Ghost extends GameObject {
         return frightened;
     }
     
+    /**
+     * Metodi vaihtaa haamun suuntaa, ja pidentää frightened tilaa.
+     */
     public void extendFrightened() {
         setDirection(getDirection().opposite());
         frightenedCounter = 0;
@@ -100,6 +113,9 @@ public class Ghost extends GameObject {
         velocity = 2;
     }
     
+    /**
+     * Metodi tarkistaa tuleeko frightened tila poistaa, vai kasvatetaanko frightenedCounter -muuttujaa lisää.
+     */
     public void updateFrightened() {
         if (frightenedCounter >= Pacman.frightenedTime) {
             velocity = 3;
@@ -110,7 +126,13 @@ public class Ghost extends GameObject {
         }
     }
     
-    public Tile getTargetScatterTile(Tile[][] tiles) {
+    /**
+     * Metodi palauttaa haamun kohde-Tilen kun scatter -tila on aktiivisena.
+     * @param level Pelikenttä, jota käytetään target-Tilen palauttamisessa.
+     * @return Target-Tile
+     */
+    public Tile getTargetScatterTile(Level level) {
+        Tile[][] tiles = level.getTiles();
         if (this.color == Color.red) {
             return tiles[0][tiles[0].length - 1];
         } else if (this.color == Color.pink) {
@@ -122,21 +144,30 @@ public class Ghost extends GameObject {
         }
     }
     
+    /**
+     * Metodi palauttaa Tile -olion, joka on kohteena kun haamu haluaa ulos häkistä.
+     * @param level Pelikenttä, jolta kysytään Tile -oliota
+     * @return Tile -olio
+     */
     public Tile getOutTargetTile(Level level) {
         return level.getGetOutTile();
     }
     
+    /**
+     * Metodi laskee haamulle kohde-Tilen, ja palauttaa sen.
+     * @param level Pelikenttä, jota käytetään targetin laskemiseen
+     * @return Tile -olio
+     */
     public Tile getTargetTile(Level level) {
         if (getOut) {
             return getOutTargetTile(level);
         }
         
-        Tile[][] tiles = level.getTiles();
-        
         if (game.getScatter()) {
-            return getTargetScatterTile(tiles);
+            return getTargetScatterTile(level);
         }
         
+        Tile[][] tiles = level.getTiles();
         
         Player player = game.getPlayer();
         Tile playerTile = tiles[player.getCenterCoordY() / Pacman.TILE_HEIGHT][player.getCenterCoordX() / Pacman.TILE_WIDTH];
@@ -183,6 +214,10 @@ public class Ghost extends GameObject {
         return tiles[tiles.length - 1][0]; //vasen alakulma
     }
     
+    /**
+     * Metodi päättää suunnan, johon liikutaan seuraavaksi, kun frightened tila on aktiivisena.
+     * @param level Pelikenttä
+     */
     public void decideDirectionFrightened(Level level) {
         Tile[][] tiles = level.getTiles();
         int centerCoordX = getCenterCoordX();
@@ -231,6 +266,10 @@ public class Ghost extends GameObject {
         direction = Direction.getCorrespondingDirection(number);
     }
     
+    /**
+     * Metodi päättää suunnan, johon liikutaan seuraavaksi.
+     * @param level Pelikenttä
+     */
     public void decideDirection(Level level) {
         if (frightened) {
             decideDirectionFrightened(level);
@@ -313,6 +352,10 @@ public class Ghost extends GameObject {
         this.direction = smallestDistance;
     }
     
+    /**
+     * Metodi tarkistaa törmääkö haamu pelaajan kanssa, ja muokkaa niiden tilaa tarvittaessa.
+     * @param level Pelikenttä
+     */
     public void collision(Level level) {
         Tile[][] tiles = level.getTiles();
         
@@ -336,7 +379,6 @@ public class Ghost extends GameObject {
         if (dead) { //vain silmät, tee jotain muuta
             return;
         }
-        Tile[][] tiles = level.getTiles();
         
         if (frightened) {
             updateFrightened();
@@ -347,8 +389,9 @@ public class Ghost extends GameObject {
         }
         
         //LIIKKUMINEN JA TÖRMÄÄMINEN
-        moveAndCollide(tiles);
+        moveAndCollide(level);
         
+        //OSUUKO PELAAJAAN
         collision(level);
     }
 

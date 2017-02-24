@@ -11,6 +11,10 @@ import pacman.objects.Player;
 public class KeyInput extends KeyAdapter {
     private Player player;
     
+    /**
+     * Kontruktori alustaa player -muuttujan.
+     * @param player Pelaaja
+     */
     public KeyInput(Player player) {
         this.player = player;
     }

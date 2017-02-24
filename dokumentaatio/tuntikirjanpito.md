@@ -11,3 +11,5 @@ Päivä | Tunnit | Kuvaus
 10.02.2017 | 6h | Haamujen koodaamisen aloittaminen, yksikkötestien ja JavaDocien tekeminen sekä pit- ja checkstyle raporttien luominen. Luokkakaavio tehty myös uudestaan ja muun dokumentaation päivittäminen
 16.02.2017 | 6h | Haamujen liikkuminen ja pacmanin seuraaminen
 17.02.2017 | 6h | Haamujen liikkeelle lähteminen häkistään, sekä scatter mode ja dokumentaatioita sekä sekvenssikaaviot
+23.2.2017 | 4h | Ohjelman päivittämistä, ja ongelmanratkomista, sekä sekvenssikaavioiden korjaamista
+24.2.2017 | 5h | JavaDocin päivittäminen, rakennekuvauksen ja käyttöohjeiden kirjoittaminen. Jar -tiedoston luominen ja checkstyle ja pit -raporttien generoiminen.

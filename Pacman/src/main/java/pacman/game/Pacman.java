@@ -41,20 +41,28 @@ public class Pacman extends Canvas implements Runnable {
     private boolean scatter = true;
     
 
+    /**
+     * Konstruktorissa tehdään olio hallitsemaan haamuja.
+     */
     public Pacman() {
-        ghostHandler = new GhostHandler(); //tehdään olio hallitsemaan haamuja
+        ghostHandler = new GhostHandler();
     }
     
-    public void createWindow() { //+40px korkeuteen, koska alas tulee pisteet ainakin
+    /**
+     * Metodi tekee ikkunan.
+     */
+    public void createWindow() {
         String operatingSystem = System.getProperty("os.name");
         
         int moreX = 6;
-        int moreY = 69;
+        int moreY = 29;
         
         if (operatingSystem.equals("Linux")) {
             moreX = 0;
-            moreY = 40;
+            moreY = 0;
         }
+        
+        moreY += 40; //+40px korkeuteen, koska alas tulee pisteet ainakin
         
         Window window = new Window(WIDTH + moreX, HEIGHT + moreY, "Pacman", this); //joutui lisäämään +6 ja +29, koska ikkuna ei ollut oikean kokoinen jostain syystä
         this.frame = window.getFrame();
@@ -68,6 +76,11 @@ public class Pacman extends Canvas implements Runnable {
         return player;
     }
     
+    /**
+     * Metodi asettaa haamun indeksin osoittamalle paikalle ghostHandler -oliossa olevaan taulukkoon.
+     * @param i Indeksi, johon haamu laitetaan
+     * @param ghost Haamu, joka laitetaan taulukkoon
+     */
     public void setGhost(int i, Ghost ghost) {
         ghostHandler.setGhost(i, ghost);
     }
@@ -88,6 +101,9 @@ public class Pacman extends Canvas implements Runnable {
         return this.scatter;
     }
     
+    /**
+     * Metodi tarkistaa tuleeko pelitilan olla tällä hetkellä scatter vai ei.
+     */
     public void checkScatter() {
         boolean newScatter = GameModeTimes.getScatter(gameUpdates);
         if (scatter != newScatter) {
@@ -181,7 +197,7 @@ public class Pacman extends Canvas implements Runnable {
     }
     
     /**
-     * Metodi päivittää pelin tilannetta.
+     * Metodi päivittää pelin tilannetta jokaiselle peliobjektille.
      */
     private void update() {
         if (!paused) {
