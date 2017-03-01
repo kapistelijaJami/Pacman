@@ -14,6 +14,8 @@ import pacman.framework.GameObject;
 import pacman.framework.Tile;
 import pacman.game.Level;
 import pacman.game.Pacman;
+import pacman.imagehandling.Animation;
+import pacman.imagehandling.Textures;
 
 /**
  * Luokka tarjoaa metodeita haamujen ohjaamisen ja törmäämisen hallintaan,
@@ -30,6 +32,9 @@ public class Ghost extends GameObject {
     
     private boolean insideCage; //häkin sisällä
     private boolean getOut; //haluaa häkistä ulos
+    
+    private Animation animation;
+    private Animation animationFrightened;
 
     /**
      * Alustetaan muuttujat.
@@ -54,6 +59,23 @@ public class Ghost extends GameObject {
     
     public void setColor(Color color) {
         this.color = color;
+        
+        Textures textures = new Textures();
+        textures.getGhostImages();
+        
+        int speed = 5;
+        
+        if (color == Color.red) {
+            this.animation = new Animation(speed, textures.getGhostImage(0), textures.getGhostImage(1));
+        } else if (color == Color.pink) {
+            this.animation = new Animation(speed, textures.getGhostImage(2), textures.getGhostImage(3));
+        } else if (color == Color.cyan) {
+            this.animation = new Animation(speed, textures.getGhostImage(4), textures.getGhostImage(5));
+        } else if (color == Color.orange) {
+            this.animation = new Animation(speed, textures.getGhostImage(6), textures.getGhostImage(7));
+        }
+        
+        this.animationFrightened = new Animation(speed, textures.getGhostImage(8), textures.getGhostImage(9));
     }
     
     public Color getColor() {
@@ -368,9 +390,18 @@ public class Ghost extends GameObject {
             if (frightened) {
                 dead = true;
                 frightened = false;
+                player.setPisteet(player.getPisteet() + 200);
             } else {
                 game.setPaused(true);
             }
+        }
+    }
+    
+    public void runAnimation() {
+        if (frightened) {
+            animationFrightened.runAnimation();
+        } else {
+            animation.runAnimation();
         }
     }
 
@@ -393,18 +424,27 @@ public class Ghost extends GameObject {
         
         //OSUUKO PELAAJAAN
         collision(level);
+        
+        runAnimation();
     }
 
     @Override
     public void render(Graphics g) {
         if (dead) { //vain silmät
-            return;
+            //return;
         }
-        g.setColor(color);
+        
+        int startX = x - width / 2 + 4;
+        int startY = y - height / 2 + 4;
+        
         if (frightened) {
-            g.setColor(Color.blue);
+            g.drawImage(animationFrightened.getCurrentImage(), startX, startY, null);
+        } else {
+            g.drawImage(animation.getCurrentImage(), startX, startY, null);
         }
+        
+        
         //g.fillRect(x, y, width, height); //testitarkoitukseen
-        g.fillRect(x - width / 2 + 4, y - height / 2 + 4, width * 2 - 8, height * 2 - 8); //oikean kokoinen Ghost
+        //g.fillRect(x - width / 2 + 4, y - height / 2 + 4, width * 2 - 8, height * 2 - 8); //oikean kokoinen Ghost
     }
 }

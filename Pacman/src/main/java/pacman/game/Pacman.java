@@ -3,6 +3,7 @@ package pacman.game;
 import pacman.ui.Window;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
@@ -229,6 +230,10 @@ public class Pacman extends Canvas implements Runnable {
         level.render(g);
         ghostHandler.render(g);
         player.render(g);
+        
+        g.setColor(Color.yellow);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Pisteet: " + player.getPisteet(), 100, 764);
         //piirto loppuu tähän//
         g.dispose();
         bs.show();
