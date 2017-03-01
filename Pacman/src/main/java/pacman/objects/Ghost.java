@@ -431,7 +431,7 @@ public class Ghost extends GameObject {
     @Override
     public void render(Graphics g) {
         if (dead) { //vain silmät
-            //return;
+            return;
         }
         
         int startX = x - width / 2 + 4;
