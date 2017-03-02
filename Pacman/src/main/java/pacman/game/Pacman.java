@@ -134,6 +134,12 @@ public class Pacman extends Canvas implements Runnable {
         paused = true;
     }
     
+    public void resetLevel() {
+        sleep(1000);
+        init();
+        paused = true;
+    }
+    
     /**
      * Metodi tekee tason kuvasta ja luo kaikki peliobjektit, sekä keyListener.
      */
