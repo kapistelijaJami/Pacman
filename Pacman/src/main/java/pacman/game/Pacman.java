@@ -282,14 +282,14 @@ public class Pacman extends Canvas implements Runnable {
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Pisteet: " + player.getPoints(), 192, 764);
         
-        for (int i = 0; i < player.getLives(); i++) {
+        for (int i = 0; i < player.getLives() - 1; i++) {
             g.drawImage(lives, 24 + (48 * i), 740, null);
         }
         
         if (gameOver) {
-            g.setColor(Color.yellow);
-            g.setFont(new Font("Arial", Font.BOLD, 20));
-            g.drawString("Game Over!", 288, 432);
+            g.setColor(Color.red);
+            g.setFont(new Font("Arial", Font.BOLD, 22));
+            g.drawString("Game Over!", 275, 425);
         }
         
         //piirto loppuu tähän//
