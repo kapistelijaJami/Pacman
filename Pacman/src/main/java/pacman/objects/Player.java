@@ -137,6 +137,7 @@ public class Player extends GameObject {
             
             if (level.allFoodEaten()) {
                 game.setPaused(true);
+                game.init();
             }
         } else if (tile.isEnergizer()) {
             tile.setIsEnergizer(false);

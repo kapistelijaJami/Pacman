@@ -131,6 +131,7 @@ public class Pacman extends Canvas implements Runnable {
         ghostHandler.resetGhosts();
         
         gameUpdates = 0;
+        paused = true;
     }
     
     /**

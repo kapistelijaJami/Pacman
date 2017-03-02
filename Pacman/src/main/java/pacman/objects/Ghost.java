@@ -436,7 +436,6 @@ public class Ghost extends GameObject {
                 velocity = 4;
                 player.setPisteet(player.getPisteet() + 200);
             } else { //pacman kuolee
-                game.setPaused(true);
                 game.killPacman();
             }
         }
