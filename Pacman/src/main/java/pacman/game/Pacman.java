@@ -31,7 +31,7 @@ public class Pacman extends Canvas implements Runnable {
     
     private Thread thread;
     private boolean running = false;
-    private String mapPath = "/msPacmanMap.png"; //Vaihtoehdot: "/originalMap.png", "/msPacmanMap.png", "/omaMap.png"
+    private String mapPath = "/originalMap.png"; //Vaihtoehdot: "/originalMap.png", "/msPacmanMap.png", "/omaMap.png"
     
     private Level level;
     private JFrame frame;
@@ -132,7 +132,6 @@ public class Pacman extends Canvas implements Runnable {
     }
     
     public void killPacman() {
-        
         player.setLives(player.getLives() - 1);
         
         if (player.getLives() <= 0) {
@@ -144,19 +143,25 @@ public class Pacman extends Canvas implements Runnable {
         
         sleep(1000);
         
-        player.resetPosition();
-        ghostHandler.resetPositions();
-        
-        player.reset();
-        ghostHandler.resetGhosts();
+        resetPositions();
         
         gameUpdates = 0;
         paused = true;
     }
     
+    public void resetPositions() {
+        player.resetPosition();
+        ghostHandler.resetPositions();
+        
+        player.reset();
+        ghostHandler.resetGhosts();
+    }
+    
     public void resetLevel() {
         sleep(1000);
-        init();
+        level.resetFoods();
+        resetPositions();
+        gameUpdates = 0;
         paused = true;
     }
     

@@ -146,7 +146,8 @@ public class Player extends GameObject {
             points += 10;
             
             if (level.allFoodEaten()) {
-                game.setPaused(true);
+                game.resetLevel();
+                //game.setPaused(true);
             }
         } else if (tile.isEnergizer()) {
             tile.setIsEnergizer(false);

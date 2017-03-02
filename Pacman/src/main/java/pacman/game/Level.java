@@ -66,6 +66,24 @@ public class Level {
         return true;
     }
     
+    public void resetFoods() {
+        for (int i = 0; i < tiles.length; i++) {
+            Tile[] row = tiles[i];
+            for (int j = 0; j < row.length; j++) {
+                int pixel = levelImage.getRGB(j, i);
+                int red = (pixel >> 16) & 0xff;
+                int green = (pixel >> 8) & 0xff;
+                int blue = (pixel) & 0xff;
+                
+                if (red == 130 && green == 130 && blue == 130) { //pieni pallo
+                    tiles[i][j].setIsFood(true);
+                } else if (red == 255 && green == 255 && blue == 255) { //iso pallo
+                    tiles[i][j].setIsEnergizer(true);
+                }
+            }
+        }
+    }
+    
     /**
      * Metodi luo kentän kuvan avulla ja luo sen perusteella Tile-oliot, sekä peliobjektit.
      * @param game Pacman peli -olio
