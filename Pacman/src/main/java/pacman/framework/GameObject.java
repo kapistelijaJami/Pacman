@@ -15,6 +15,9 @@ public abstract class GameObject {
     
     protected int x;
     protected int y;
+    protected int startX;
+    protected int startY;
+    
     protected Direction direction;
     protected int velocity = 0;
     
@@ -29,6 +32,9 @@ public abstract class GameObject {
     public GameObject(int x, int y) {
         this.x = x;
         this.y = y;
+        
+        this.startX = x;
+        this.startY = y;
     }
     
     /**
@@ -57,6 +63,11 @@ public abstract class GameObject {
     
     public int getHeight() {
         return this.height;
+    }
+    
+    public void resetPosition() {
+        this.x = this.startX;
+        this.y = this.startY;
     }
     
     public Direction getDirection() {

@@ -46,6 +46,18 @@ public class GhostHandler {
         return ghosts;
     }
     
+    public void resetPositions() {
+        for (Ghost ghost : ghosts) {
+            ghost.resetPosition();
+        }
+    }
+    
+    public void resetGhosts() {
+        for (Ghost ghost : ghosts) {
+            ghost.reset();
+        }
+    }
+    
     /**
      * Metodi asettaa pelin jokaiselle haamulle.
      * @param game Pacman -olio

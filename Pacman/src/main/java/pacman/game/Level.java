@@ -54,6 +54,18 @@ public class Level {
         return getInTile;
     }
     
+    public boolean allFoodEaten() {
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
+                if (tile.isFood()) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
     /**
      * Metodi luo kentän kuvan avulla ja luo sen perusteella Tile-oliot, sekä peliobjektit.
      * @param game Pacman peli -olio

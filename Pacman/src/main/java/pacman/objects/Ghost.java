@@ -435,8 +435,9 @@ public class Ghost extends GameObject {
                 frightenedCounter = 0;
                 velocity = 4;
                 player.setPisteet(player.getPisteet() + 200);
-            } else {
+            } else { //pacman kuolee
                 game.setPaused(true);
+                game.killPacman();
             }
         }
     }

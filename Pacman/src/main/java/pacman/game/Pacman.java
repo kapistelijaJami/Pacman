@@ -28,6 +28,7 @@ public class Pacman extends Canvas implements Runnable {
     
     private Thread thread;
     private boolean running = false;
+    private String mapPath = "/originalMap.png"; //Vaihtoehdot: "/originalMap.png", "/msPacmanMap.png", "/omaMap.png"
     
     private Level level;
     private JFrame frame;
@@ -77,6 +78,14 @@ public class Pacman extends Canvas implements Runnable {
         return player;
     }
     
+    public void sleep(int milliseconds) {
+        try {
+            thread.sleep(milliseconds);
+        } catch (Exception e) {
+            
+        }
+    }
+    
     /**
      * Metodi asettaa haamun indeksin osoittamalle paikalle ghostHandler -oliossa olevaan taulukkoon.
      * @param i Indeksi, johon haamu laitetaan
@@ -113,13 +122,24 @@ public class Pacman extends Canvas implements Runnable {
         scatter = newScatter;
     }
     
+    public void killPacman() {
+        sleep(1000);
+        player.resetPosition();
+        ghostHandler.resetPositions();
+        
+        player.reset();
+        ghostHandler.resetGhosts();
+        
+        gameUpdates = 0;
+    }
+    
     /**
      * Metodi tekee tason kuvasta ja luo kaikki peliobjektit, sekä keyListener.
      */
     public void init() {
         //tehdään taso kuvasta ja luodaan kaikki peliobjektit
         level = new Level(28, 31);
-        level.loadLevelImage("/originalMap.png"); //Vaihtoehdot: "/originalMap.png", "/msPacmanMap.png", "/omaMap.png"
+        level.loadLevelImage(mapPath);
         level.makeLevelFromImage(this);
         
         gameUpdates = 0;

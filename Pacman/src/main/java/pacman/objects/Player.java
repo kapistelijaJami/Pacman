@@ -70,6 +70,18 @@ public class Player extends GameObject {
         this.pisteet = pisteet;
     }
     
+    public void reset() {
+        velocity = 3;
+        
+        this.direction = Direction.LEFT;
+        this.nextDirection = this.direction;
+        
+        moveLeft.reset();
+        moveDown.reset();
+        moveRight.reset();
+        moveUp.reset();
+    }
+    
     /**
      * Metodi katsoo tuleeko seuraavaan suuntaan liikuttaessa seinä vastaan.
      * @param level Pelikenttä
@@ -122,6 +134,10 @@ public class Player extends GameObject {
         if (tile.isFood()) {
             tile.setIsFood(false);
             pisteet += 10;
+            
+            if (level.allFoodEaten()) {
+                game.setPaused(true);
+            }
         } else if (tile.isEnergizer()) {
             tile.setIsEnergizer(false);
             game.getGhostHandler().extendFrightened();
