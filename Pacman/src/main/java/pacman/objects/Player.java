@@ -19,7 +19,8 @@ public class Player extends GameObject {
     
     private Direction nextDirection;
     private Pacman game;
-    private int pisteet;
+    private int points;
+    private int lives;
     
     private Animation moveRight, moveDown, moveLeft, moveUp;
     
@@ -37,7 +38,8 @@ public class Player extends GameObject {
         
         this.direction = Direction.LEFT;
         this.nextDirection = this.direction;
-        this.pisteet = 0;
+        this.points = 0;
+        this.lives = 3;
         
         Textures textures = new Textures();
         textures.getPlayerImages();
@@ -62,12 +64,20 @@ public class Player extends GameObject {
         return this.nextDirection;
     }
     
-    public int getPisteet() {
-        return this.pisteet;
+    public int getPoints() {
+        return this.points;
     }
     
-    public void setPisteet(int pisteet) {
-        this.pisteet = pisteet;
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
+    public int getLives() {
+        return this.lives;
+    }
+    
+    public void setLives(int lives) {
+        this.lives = lives;
     }
     
     public void reset() {
@@ -133,7 +143,7 @@ public class Player extends GameObject {
         //syötävät
         if (tile.isFood()) {
             tile.setIsFood(false);
-            pisteet += 10;
+            points += 10;
             
             if (level.allFoodEaten()) {
                 game.setPaused(true);
@@ -141,7 +151,7 @@ public class Player extends GameObject {
         } else if (tile.isEnergizer()) {
             tile.setIsEnergizer(false);
             game.getGhostHandler().extendFrightened();
-            pisteet += 50;
+            points += 50;
         }
     }
     

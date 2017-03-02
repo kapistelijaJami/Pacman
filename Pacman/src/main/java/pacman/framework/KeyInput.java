@@ -33,7 +33,9 @@ public class KeyInput extends KeyAdapter {
             player.setNextDirection(Direction.UP);
             
         } else if (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_SPACE) { //pause ja unpause
-            Pacman.paused = !Pacman.paused;
+            if (!Pacman.gameOver) {
+                Pacman.paused = !Pacman.paused;
+            }
         } else if (key == KeyEvent.VK_ESCAPE) {
             System.exit(0);
         }

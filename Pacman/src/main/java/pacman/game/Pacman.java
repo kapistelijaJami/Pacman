@@ -6,10 +6,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import pacman.framework.KeyInput;
 import pacman.framework.GameModeTimes;
 import pacman.framework.Tile;
+import pacman.imagehandling.Textures;
 import pacman.objects.Ghost;
 import pacman.objects.Player;
 
@@ -25,10 +27,11 @@ public class Pacman extends Canvas implements Runnable {
     public static final int TILE_HEIGHT = 24;
     
     public static boolean paused = true; //Lähtee käyntiin Enteriä tai Välilyöntiä painamalla
+    public static boolean gameOver = false;
     
     private Thread thread;
     private boolean running = false;
-    private String mapPath = "/originalMap.png"; //Vaihtoehdot: "/originalMap.png", "/msPacmanMap.png", "/omaMap.png"
+    private String mapPath = "/msPacmanMap.png"; //Vaihtoehdot: "/originalMap.png", "/msPacmanMap.png", "/omaMap.png"
     
     private Level level;
     private JFrame frame;
@@ -42,12 +45,18 @@ public class Pacman extends Canvas implements Runnable {
     public static int frightenedTime = (int) updatesPerSecond * 7; //päivitykset * sekunnit
     private boolean scatter = true;
     
+    private BufferedImage lives;
+    
 
     /**
      * Konstruktorissa tehdään olio hallitsemaan haamuja.
      */
     public Pacman() {
         ghostHandler = new GhostHandler();
+        
+        Textures textures = new Textures();
+        textures.getPlayerImages();
+        this.lives = textures.getPlayerImage(4);
     }
     
     /**
@@ -123,7 +132,18 @@ public class Pacman extends Canvas implements Runnable {
     }
     
     public void killPacman() {
+        
+        player.setLives(player.getLives() - 1);
+        
+        if (player.getLives() <= 0) {
+            gameOver = true;
+            paused = true;
+            gameUpdates = 0;
+            return;
+        }
+        
         sleep(1000);
+        
         player.resetPosition();
         ghostHandler.resetPositions();
         
@@ -260,7 +280,18 @@ public class Pacman extends Canvas implements Runnable {
         
         g.setColor(Color.yellow);
         g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("Pisteet: " + player.getPisteet(), 100, 764);
+        g.drawString("Pisteet: " + player.getPoints(), 192, 764);
+        
+        for (int i = 0; i < player.getLives(); i++) {
+            g.drawImage(lives, 24 + (48 * i), 740, null);
+        }
+        
+        if (gameOver) {
+            g.setColor(Color.yellow);
+            g.setFont(new Font("Arial", Font.BOLD, 20));
+            g.drawString("Game Over!", 288, 432);
+        }
+        
         //piirto loppuu tähän//
         g.dispose();
         bs.show();
