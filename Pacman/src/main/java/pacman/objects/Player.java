@@ -20,7 +20,6 @@ public class Player extends GameObject {
     private Direction nextDirection;
     private Pacman game;
     private int pisteet;
-    BufferedImage image;
     
     private Animation moveRight, moveDown, moveLeft, moveUp;
     

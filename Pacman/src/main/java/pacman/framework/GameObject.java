@@ -179,6 +179,13 @@ public abstract class GameObject {
             
             Tile nextTile = tiles[nextTileCoordY][getCenterCoordX() / Pacman.TILE_WIDTH];
             
+            if (this.getClass() == Ghost.class) { //on haamu
+                Ghost temp = (Ghost) this;
+                if (temp.canCrossHatch() && nextTile != null && nextTile.isGhostHatch()) {
+                    return;
+                }
+            }
+            
             if (nextTile != null && nextTile.isWall()) {
                 this.y = (nextTileCoordY - 1) * Pacman.TILE_WIDTH; //vie pacmanin seinän yläpuolelle
             }
@@ -194,12 +201,8 @@ public abstract class GameObject {
             
             int nextTileCoordX = (getCenterCoordX() + Pacman.TILE_WIDTH / 2) / Pacman.TILE_WIDTH;
             
-            Tile nextTile = null;
-            try {
-                nextTile = tiles[getCenterCoordY() / Pacman.TILE_HEIGHT][nextTileCoordX];
-            } catch (Exception e) {
-                System.out.println("prkl");
-            }
+            Tile nextTile = tiles[getCenterCoordY() / Pacman.TILE_HEIGHT][nextTileCoordX];
+            
             if (nextTile != null && nextTile.isWall()) {
                 this.x = (nextTileCoordX - 1) * Pacman.TILE_WIDTH; //vie pacmanin seinän vasemmalle puolelle
             }
@@ -210,9 +213,9 @@ public abstract class GameObject {
             
             Tile nextTile = tiles[nextTileCoordY][getCenterCoordX() / Pacman.TILE_WIDTH];
             
-            if (this.getClass() == Ghost.class) { //haamu
+            if (this.getClass() == Ghost.class) { //on haamu
                 Ghost temp = (Ghost) this;
-                if (temp.getGetOut() && nextTile != null && nextTile.isGhostHatch()) {
+                if (temp.canCrossHatch() && nextTile != null && nextTile.isGhostHatch()) {
                     return;
                 }
             }

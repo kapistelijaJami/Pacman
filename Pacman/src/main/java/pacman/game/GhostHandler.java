@@ -57,11 +57,13 @@ public class GhostHandler {
     }
     
     /**
-     * Metodi kutsuu jokaisen haamun extendFirghtened() -metodia.
+     * Metodi kutsuu jokaisen haamun, paitsi kuolleiden, extendFirghtened() -metodia.
      */
     public void extendFrightened() {
         for (Ghost ghost : ghosts) {
-            ghost.extendFrightened();
+            if (!ghost.getDead()) {
+                ghost.extendFrightened();
+            }
         }
     }
     
@@ -70,7 +72,7 @@ public class GhostHandler {
      */
     public void oppositeDirection() {
         for (Ghost ghost : ghosts) {
-            if (!ghost.isFrightened()) {
+            if (!ghost.getDead() && !ghost.isFrightened()) {
                 ghost.setDirection(ghost.getDirection().opposite());
             }
         }
@@ -83,15 +85,15 @@ public class GhostHandler {
      */
     public void checkGetOut(Level level, int updates) {
         for (Ghost ghost : ghosts) {
-            if (ghost.getGetOut()) {
+            if (!ghost.getDead() && ghost.canCrossHatch()) {
                 if (ghost.isOnTargetTile(level)) {
-                    ghost.setGetOut(false);
+                    ghost.setCanCrossHatch(false);
                     ghost.setInsideCage(false);
                 }
             }
             
             if (ghost.getInsideCage()) {
-                ghost.setGetOut(GameModeTimes.getGhostOut(ghost, updates));
+                ghost.setCanCrossHatch(GameModeTimes.getGhostOut(ghost, updates));
             }
         }
     }

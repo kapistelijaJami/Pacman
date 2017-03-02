@@ -10,7 +10,7 @@ public class Textures {
     public Textures() {
         imageLoader = new ImageLoader();
         player = new BufferedImage[20];
-        ghosts = new BufferedImage[10];
+        ghosts = new BufferedImage[11];
     }
     
     public BufferedImage getPlayerImage(int index) {
@@ -62,5 +62,7 @@ public class Textures {
         
         ghosts[8] = imageLoader.loadImage("/ghostTextures/frightenedEka.png");
         ghosts[9] = imageLoader.loadImage("/ghostTextures/frightenedToka.png");
+        
+        ghosts[10] = imageLoader.loadImage("/ghostTextures/silmat.png");
     }
 }

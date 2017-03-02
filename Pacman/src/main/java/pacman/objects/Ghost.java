@@ -7,6 +7,7 @@ package pacman.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Random;
 import pacman.framework.Direction;
@@ -31,10 +32,11 @@ public class Ghost extends GameObject {
     private boolean dead;
     
     private boolean insideCage; //häkin sisällä
-    private boolean getOut; //haluaa häkistä ulos
+    private boolean canCrossHatch; //haluaa häkistä ulos
     
     private Animation animation;
     private Animation animationFrightened;
+    private BufferedImage silmat;
 
     /**
      * Alustetaan muuttujat.
@@ -52,8 +54,9 @@ public class Ghost extends GameObject {
         this.direction = Direction.LEFT;
         
         frightened = false;
+        frightenedCounter = 0;
         dead = false;
-        getOut = false;
+        canCrossHatch = false;
         insideCage = true;
     }
     
@@ -76,6 +79,7 @@ public class Ghost extends GameObject {
         }
         
         this.animationFrightened = new Animation(speed, textures.getGhostImage(8), textures.getGhostImage(9));
+        this.silmat = textures.getGhostImage(10);
     }
     
     public Color getColor() {
@@ -94,12 +98,16 @@ public class Ghost extends GameObject {
         return this.insideCage;
     }
     
-    public void setGetOut(boolean getOut) {
-        this.getOut = getOut;
+    public void setCanCrossHatch(boolean getOut) {
+        this.canCrossHatch = getOut;
     }
     
-    public boolean getGetOut() {
-        return this.getOut;
+    public boolean canCrossHatch() {
+        return this.canCrossHatch;
+    }
+    
+    public boolean getDead() {
+        return this.dead;
     }
     
     /**
@@ -148,6 +156,28 @@ public class Ghost extends GameObject {
         }
     }
     
+    public void updateDead(Level level) {
+        if (canCrossHatch) { //menossa häkkiin sisään
+            if (isOnTargetTile(level)) {
+                reset();
+            }
+        } else { //menossa punaiselle aloituspisteelle
+            if (isOnTargetTile(level)) {
+                canCrossHatch = true;
+            }
+        }
+    }
+    
+    public void reset() {
+        velocity = 3;
+        
+        frightened = false;
+        frightenedCounter = 0;
+        dead = false;
+        canCrossHatch = false;
+        insideCage = true;
+    }
+    
     /**
      * Metodi palauttaa haamun kohde-Tilen kun scatter -tila on aktiivisena.
      * @param level Pelikenttä, jota käytetään target-Tilen palauttamisessa.
@@ -175,13 +205,23 @@ public class Ghost extends GameObject {
         return level.getGetOutTile();
     }
     
+    public Tile getGetInTargetTile(Level level) {
+        return level.getGetInTile();
+    }
+    
     /**
      * Metodi laskee haamulle kohde-Tilen, ja palauttaa sen.
      * @param level Pelikenttä, jota käytetään targetin laskemiseen
      * @return Tile -olio
      */
     public Tile getTargetTile(Level level) {
-        if (getOut) {
+        if (dead) {
+            if (canCrossHatch) {
+                return getGetInTargetTile(level);
+            } else {
+                return getOutTargetTile(level);
+            }
+        } else if (canCrossHatch) {
             return getOutTargetTile(level);
         }
         
@@ -293,7 +333,7 @@ public class Ghost extends GameObject {
      * @param level Pelikenttä
      */
     public void decideDirection(Level level) {
-        if (frightened) {
+        if (!dead && frightened) {
             decideDirectionFrightened(level);
             return;
         }
@@ -313,7 +353,7 @@ public class Ghost extends GameObject {
         
         if (tileY >= 0) {
             Tile tileUp = tiles[tileY / Pacman.TILE_HEIGHT][tileX / Pacman.TILE_WIDTH];
-            if (!tileUp.isWall() || getOut && tileUp.isGhostHatch()) { //jos ylhäällä on ghostHatch ja halutaan ulos, niin valitaan se suunta
+            if (!tileUp.isWall() || canCrossHatch && tileUp.isGhostHatch()) { //jos ylhäällä on ghostHatch ja halutaan ulos, niin valitaan se suunta
                 distances.put(Direction.UP, tileUp.distance(targetTile));
             }
         }
@@ -335,7 +375,7 @@ public class Ghost extends GameObject {
         
         if (tileY < tiles.length * Pacman.TILE_HEIGHT) {
             Tile tileDown = tiles[tileY / Pacman.TILE_HEIGHT][tileX / Pacman.TILE_WIDTH];
-            if (!tileDown.isWall()) {
+            if (!tileDown.isWall() || canCrossHatch && tileDown.isGhostHatch()) { //jos alhaalla on ghostHatch ja halutaan sisään, niin valitaan se suunta
                 distances.put(Direction.DOWN, tileDown.distance(targetTile));
             }
         }
@@ -387,9 +427,13 @@ public class Ghost extends GameObject {
         Tile ghostTile = tiles[getCenterCoordY() / Pacman.TILE_HEIGHT][getCenterCoordX() / Pacman.TILE_WIDTH];
         
         if (playerTile == ghostTile) {
-            if (frightened) {
+            if (dead) {
+                //ei tapahdu mitään
+            } else if (frightened) {
                 dead = true;
                 frightened = false;
+                frightenedCounter = 0;
+                velocity = 4;
                 player.setPisteet(player.getPisteet() + 200);
             } else {
                 game.setPaused(true);
@@ -407,11 +451,9 @@ public class Ghost extends GameObject {
 
     @Override
     public void update(Level level) {
-        if (dead) { //vain silmät, tee jotain muuta
-            return;
-        }
-        
-        if (frightened) {
+        if (dead) { //vain silmät
+            updateDead(level);
+        } else if (frightened) {
             updateFrightened();
         }
         
@@ -430,14 +472,12 @@ public class Ghost extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        if (dead) { //vain silmät
-            return;
-        }
-        
         int startX = x - width / 2 + 4;
         int startY = y - height / 2 + 4;
         
-        if (frightened) {
+        if (dead) {
+            g.drawImage(silmat, startX, startY, null);
+        } else if (frightened) {
             g.drawImage(animationFrightened.getCurrentImage(), startX, startY, null);
         } else {
             g.drawImage(animation.getCurrentImage(), startX, startY, null);

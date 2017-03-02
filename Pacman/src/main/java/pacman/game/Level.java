@@ -18,6 +18,7 @@ public class Level {
     private Tile[][] tiles;
     private BufferedImage levelImage;
     private Tile getOutTile;
+    private Tile getInTile;
     
     /**
      * Konstruktori alustaa tiles taulukon.
@@ -47,6 +48,10 @@ public class Level {
     
     public Tile getGetOutTile() {
         return getOutTile;
+    }
+    
+    public Tile getGetInTile() {
+        return getInTile;
     }
     
     /**
@@ -116,6 +121,10 @@ public class Level {
                     Ghost ghost = new Ghost(xx * Pacman.TILE_WIDTH + Pacman.TILE_WIDTH / 2, yy * Pacman.TILE_HEIGHT);
                     game.setGhost(1, ghost);
                     ghost.setColor(Color.pink);
+                    
+                    //tehdään myös getInTile
+                    tiles[yy][xx] = new Tile(xx * Pacman.TILE_WIDTH, yy * Pacman.TILE_HEIGHT); //tehdään tyhjä tile
+                    this.getInTile = tiles[yy][xx];
                     
                 } else if (red == 0 && green == 255 && blue == 255) { //Inky
                     Ghost ghost = new Ghost(xx * Pacman.TILE_WIDTH + Pacman.TILE_WIDTH / 2, yy * Pacman.TILE_HEIGHT);
