@@ -29,21 +29,19 @@ public class Textures {
         player[3] = imageLoader.loadImage("/pacmanTextures/pacmanMelkeinAuki.png");
         player[4] = imageLoader.loadImage("/pacmanTextures/pacmanAuki.png");
         
-        ImageHandler imageHandler = new ImageHandler();
-        
         //ALAS
         for (int i = 0; i < 5; i++) {
-            player[i + 5] = imageHandler.rotateImage(player[i], 90);
+            player[i + 5] = ImageHandler.rotateImage(player[i], 90);
         }
         
         //VASEMMALLE
         for (int i = 0; i < 5; i++) {
-            player[i + 10] = imageHandler.flipImageHorizontally(player[i]);
+            player[i + 10] = ImageHandler.flipImageHorizontally(player[i]);
         }
         
         //YLÖS
         for (int i = 0; i < 5; i++) {
-            player[i + 15] = imageHandler.rotateImage(player[i], -90);
+            player[i + 15] = ImageHandler.rotateImage(player[i], -90);
         }
     }
     
