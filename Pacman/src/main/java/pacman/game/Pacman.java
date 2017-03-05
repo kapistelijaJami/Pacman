@@ -165,6 +165,17 @@ public class Pacman extends Canvas implements Runnable {
         paused = true;
     }
     
+    public void restartGame() {
+        level.resetFoods();
+        resetPositions();
+        gameUpdates = 0;
+        paused = true;
+        
+        gameOver = false;
+        player.setLives(3);
+        player.setPoints(0);
+    }
+    
     /**
      * Metodi tekee tason kuvasta ja luo kaikki peliobjektit, sekä keyListener.
      */
@@ -179,7 +190,7 @@ public class Pacman extends Canvas implements Runnable {
         player.setGame(this); //annetaan pelaajalle peli
         ghostHandler.setGame(this); //annetaan haamuille peli, jota ne tarvitsee esim targetin etsintään
         
-        this.addKeyListener(new KeyInput(player)); //luodaan keyListener
+        this.addKeyListener(new KeyInput(player, this)); //luodaan keyListener
         running = true;
     }
     

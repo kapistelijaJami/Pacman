@@ -57,7 +57,7 @@ public class Level {
     public boolean allFoodEaten() {
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
-                if (tile.isFood()) {
+                if (tile.isFood() || tile.isEnergizer()) {
                     return false;
                 }
             }

@@ -10,13 +10,15 @@ import pacman.objects.Player;
  */
 public class KeyInput extends KeyAdapter {
     private Player player;
+    private Pacman game;
     
     /**
      * Kontruktori alustaa player -muuttujan.
      * @param player Pelaaja
      */
-    public KeyInput(Player player) {
+    public KeyInput(Player player, Pacman game) {
         this.player = player;
+        this.game = game;
     }
     
     @Override
@@ -35,6 +37,8 @@ public class KeyInput extends KeyAdapter {
         } else if (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_SPACE) { //pause ja unpause
             if (!Pacman.gameOver) {
                 Pacman.paused = !Pacman.paused;
+            } else {
+                game.restartGame();
             }
         } else if (key == KeyEvent.VK_ESCAPE) {
             System.exit(0);
