@@ -8,13 +8,12 @@ Jokaisesta syödystä pallosta saa 10 pistettä ja isosta pallosta 50 pistettä. Haa
 - pelin aloittaminen
 - hahmon ohjaaminen
 
-**Ideoita:**
+**Ideoita (tai tulevaisuuden suunnitelmia):**
 - Mahdollisesti useampi taso, jotka vaikeutuvat entisestä
 - Ehkä erilaisia layoutteja
 - Haamut jahtaavat eri tavalla, joku tähtää eteenpäin jne
 - Mahdollisesti yritän myös animoida haamuille ja pacmanille pieniä animaatioita ja esim silmien liikkeitä
 - Kentälle ilmestyy ylimääräisiä syötäviä, kuten hedelmiä tai marjoja, joista saa lisää pisteitä
-- Äänimaailmasta en tiedä vielä onnistuuko toteutus, mutta jos jää aikaa, niin jotain voisi tehdä
 
 ### Luokkakaavio
 

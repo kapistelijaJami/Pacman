@@ -15,3 +15,4 @@ Päivä | Tunnit | Kuvaus
 24.2.2017 | 5h | JavaDocin päivittäminen, rakennekuvauksen ja käyttöohjeiden kirjoittaminen. Jar -tiedoston luominen ja checkstyle ja pit -raporttien generoiminen
 1.3.2017 | 7h | Animaatioiden tekeminen ja pisteiden laskeminen
 2.3.2017 | 5h | Haamujen kuoleminen ja liikkuminen takaisin häkkiinsä, sekä dokumentaation päivittäminen
+5.3.2017 | 5h | Pelikoodin viimeistelyä, JavaJocin päivittäminen ja dokumentaation päivittäminen
