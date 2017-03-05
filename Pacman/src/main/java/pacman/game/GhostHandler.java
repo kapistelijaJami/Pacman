@@ -46,12 +46,18 @@ public class GhostHandler {
         return ghosts;
     }
     
+    /**
+     * Metodi kutsuu jokaisen haamun resetPosition() -metodia.
+     */
     public void resetPositions() {
         for (Ghost ghost : ghosts) {
             ghost.resetPosition();
         }
     }
     
+    /**
+     * Metodi kutsuu jokaisen haamun reset() -metodia.
+     */
     public void resetGhosts() {
         for (Ghost ghost : ghosts) {
             ghost.reset();

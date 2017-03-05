@@ -87,6 +87,10 @@ public class Pacman extends Canvas implements Runnable {
         return player;
     }
     
+    /**
+     * Metodi odottaa parametrinaan saavan millisekuntien verran.
+     * @param milliseconds odotusaika
+     */
     public void sleep(int milliseconds) {
         try {
             thread.sleep(milliseconds);
@@ -131,6 +135,9 @@ public class Pacman extends Canvas implements Runnable {
         scatter = newScatter;
     }
     
+    /**
+     * Metodi suorittaa tarvittavat operaatiot kun pacman kuolee.
+     */
     public void killPacman() {
         player.setLives(player.getLives() - 1);
         
@@ -149,6 +156,9 @@ public class Pacman extends Canvas implements Runnable {
         paused = true;
     }
     
+    /**
+     * Nollaa pelaajan ja haamujen sijainnit kentällä.
+     */
     public void resetPositions() {
         player.resetPosition();
         ghostHandler.resetPositions();
@@ -157,6 +167,9 @@ public class Pacman extends Canvas implements Runnable {
         ghostHandler.resetGhosts();
     }
     
+    /**
+     * Nollaa kentän, pelaajan ja haamut alkutilaan, mutta ei muuta pisteitä, eikä elämiä.
+     */
     public void resetLevel() {
         sleep(1000);
         level.resetFoods();
@@ -165,6 +178,9 @@ public class Pacman extends Canvas implements Runnable {
         paused = true;
     }
     
+    /**
+     * Nollaa koko pelin alkutilaan. Pisteet ja elämätkin nollaantuu.
+     */
     public void restartGame() {
         level.resetFoods();
         resetPositions();
@@ -190,7 +206,9 @@ public class Pacman extends Canvas implements Runnable {
         player.setGame(this); //annetaan pelaajalle peli
         ghostHandler.setGame(this); //annetaan haamuille peli, jota ne tarvitsee esim targetin etsintään
         
-        this.addKeyListener(new KeyInput(player, this)); //luodaan keyListener
+        KeyInput input = new KeyInput(player);
+        input.setGame(this);
+        this.addKeyListener(input); //luodaan keyListener
         running = true;
     }
     

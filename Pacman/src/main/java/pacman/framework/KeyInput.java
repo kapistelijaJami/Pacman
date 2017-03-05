@@ -16,8 +16,11 @@ public class KeyInput extends KeyAdapter {
      * Kontruktori alustaa player -muuttujan.
      * @param player Pelaaja
      */
-    public KeyInput(Player player, Pacman game) {
+    public KeyInput(Player player) {
         this.player = player;
+    }
+    
+    public void setGame(Pacman game) {
         this.game = game;
     }
     

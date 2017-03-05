@@ -80,6 +80,9 @@ public class Player extends GameObject {
         this.lives = lives;
     }
     
+    /**
+     * Metodi nollaa pelaajan muuttujat.
+     */
     public void reset() {
         velocity = 3;
         
@@ -156,6 +159,9 @@ public class Player extends GameObject {
         }
     }
     
+    /**
+     * Metodi kutsuu oikean animaation runAnimation() -metodia.
+     */
     public void runAnimation() {
         if (direction == Direction.UP) {
             moveUp.runAnimation();
@@ -168,6 +174,10 @@ public class Player extends GameObject {
         }
     }
     
+    /**
+     * Metodi palauttaa pelaajan animaation tämänhetkisen kuvan.
+     * @return Animaation tämänhetkinen kuva.
+     */
     public BufferedImage getCurrentImage() {
         BufferedImage image = null;
         if (direction == Direction.UP) {

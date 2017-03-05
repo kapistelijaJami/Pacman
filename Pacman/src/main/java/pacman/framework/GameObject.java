@@ -65,6 +65,9 @@ public abstract class GameObject {
         return this.height;
     }
     
+    /**
+     * Metodi nollaa peliobjektin sijainnin alkupaikalleen.
+     */
     public void resetPosition() {
         this.x = this.startX;
         this.y = this.startY;

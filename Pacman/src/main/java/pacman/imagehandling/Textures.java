@@ -7,20 +7,36 @@ public class Textures {
     private BufferedImage[] ghosts;
     private ImageLoader imageLoader;
     
+    /**
+     * Konstruktori luo tarvittavat muuttujat.
+     */
     public Textures() {
         imageLoader = new ImageLoader();
         player = new BufferedImage[20];
         ghosts = new BufferedImage[11];
     }
     
+    /**
+     * Metodi palauttaa pelaajan indeksiä vastaavan kuvan.
+     * @param index Indeksi
+     * @return Kuva, joka palautetaan
+     */
     public BufferedImage getPlayerImage(int index) {
         return player[index];
     }
     
+    /**
+     * Metodi palauttaa haamun indeksiä vastaavan kuvan.
+     * @param index Indeksi
+     * @return Kuva, joka palautetaan
+     */
     public BufferedImage getGhostImage(int index) {
         return ghosts[index];
     }
     
+    /**
+     * Metodi lataa pelaajan kuvat ja asettaa ne taulukkoon.
+     */
     public void getPlayerImages() {
         //OIKEALLE
         player[0] = imageLoader.loadImage("/pacmanTextures/pacmanKiinni.png");
@@ -45,6 +61,9 @@ public class Textures {
         }
     }
     
+    /**
+     * Metodi lataa haamun kuvat ja asettaa ne taulukkoon.
+     */
     public void getGhostImages() {
         ghosts[0] = imageLoader.loadImage("/ghostTextures/blinkyEka.png");
         ghosts[1] = imageLoader.loadImage("/ghostTextures/blinkyToka.png");

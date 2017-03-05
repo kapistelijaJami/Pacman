@@ -60,6 +60,10 @@ public class Ghost extends GameObject {
         insideCage = true;
     }
     
+    /**
+     * Metodi asettaa haamulle värin, sekä animaation sen perusteella.
+     * @param color Väri
+     */
     public void setColor(Color color) {
         this.color = color;
         
@@ -102,6 +106,10 @@ public class Ghost extends GameObject {
         this.canCrossHatch = getOut;
     }
     
+    /**
+     * Metodi palauttaa canCrossHatch -muuttujan.
+     * @return canCrossHatch
+     */
     public boolean canCrossHatch() {
         return this.canCrossHatch;
     }
@@ -156,6 +164,10 @@ public class Ghost extends GameObject {
         }
     }
     
+    /**
+     * Metodi päivittää haamun dead -muuttujaa vaadittaessa.
+     * @param level Pelikenttä
+     */
     public void updateDead(Level level) {
         if (canCrossHatch) { //menossa häkkiin sisään
             if (isOnTargetTile(level)) {
@@ -168,6 +180,9 @@ public class Ghost extends GameObject {
         }
     }
     
+    /**
+     * Metodi nollaa haamun muuttujat.
+     */
     public void reset() {
         velocity = 3;
         
@@ -205,6 +220,11 @@ public class Ghost extends GameObject {
         return level.getGetOutTile();
     }
     
+    /**
+     * Metodi palauttaa Tile -olion, joka on kohteena kun haamu haluaa sisään häkkiin.
+     * @param level Pelikenttä, jolta kysytään Tile -oliota
+     * @return Tile -olio
+     */
     public Tile getGetInTargetTile(Level level) {
         return level.getGetInTile();
     }
@@ -419,6 +439,10 @@ public class Ghost extends GameObject {
      * @param level Pelikenttä
      */
     public void collision(Level level) {
+        if (dead) {
+            return;
+        }
+        
         Tile[][] tiles = level.getTiles();
         
         Player player = game.getPlayer();
@@ -427,9 +451,7 @@ public class Ghost extends GameObject {
         Tile ghostTile = tiles[getCenterCoordY() / Pacman.TILE_HEIGHT][getCenterCoordX() / Pacman.TILE_WIDTH];
         
         if (playerTile == ghostTile) {
-            if (dead) {
-                //ei tapahdu mitään
-            } else if (frightened) {
+            if (frightened) {
                 dead = true;
                 frightened = false;
                 frightenedCounter = 0;
@@ -441,6 +463,9 @@ public class Ghost extends GameObject {
         }
     }
     
+    /**
+     * Metodi kutsuu oikean animaation runAnimation() -metodia.
+     */
     public void runAnimation() {
         if (frightened) {
             animationFrightened.runAnimation();

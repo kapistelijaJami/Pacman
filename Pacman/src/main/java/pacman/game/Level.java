@@ -54,6 +54,10 @@ public class Level {
         return getInTile;
     }
     
+    /**
+     * Metodi tarkistaa onko koko kentän syötävät pienet pallot syötynä.
+     * @return Onko kaikki pallot syöty
+     */
     public boolean allFoodEaten() {
         for (Tile[] row : tiles) {
             for (Tile tile : row) {
@@ -66,6 +70,9 @@ public class Level {
         return true;
     }
     
+    /**
+     * Asettaa kuvan avulla pallot uudestaan kentälle.
+     */
     public void resetFoods() {
         for (int i = 0; i < tiles.length; i++) {
             Tile[] row = tiles[i];

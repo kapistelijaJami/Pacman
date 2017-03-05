@@ -11,6 +11,11 @@ public class Animation {
 
     private BufferedImage[] images;
 
+    /**
+     * Konstruktori luo Animation olion ja alustaa sen muuttujat.
+     * @param speed Animaation toistonopeus
+     * @param images Kuvat, joista animaatio koostuu
+     */
     public Animation(int speed, BufferedImage... images) {
         this.updatesFromLastFrame = 0;
         this.currentFrame = 0;
@@ -22,6 +27,9 @@ public class Animation {
         }
     }
 
+    /**
+     * Metodi vaihtaa animaation kuvaa tarpeen mukaan, nopeudesta riippuen.
+     */
     public void runAnimation() {
         updatesFromLastFrame++;
         if (updatesFromLastFrame > speed) {
@@ -30,6 +38,9 @@ public class Animation {
         }
     }
 
+    /**
+     * Metodi vaihtaa animaation kuvaa.
+     */
     public void nextFrame() {
         currentFrame++;
 
@@ -38,10 +49,17 @@ public class Animation {
         }
     }
     
+    /**
+     * Metodi palauttaa animaation tämänhetkisen kuvan.
+     * @return Tämänhetkinen kuva
+     */
     public BufferedImage getCurrentImage() {
         return images[currentFrame];
     }
     
+    /**
+     * Metodi nollaa animaation.
+     */
     public void reset() {
         this.updatesFromLastFrame = 0;
         this.currentFrame = 0;

@@ -1,0 +1,5 @@
+pacman.framework
+pacman.game
+pacman.imagehandling
+pacman.objects
+pacman.ui
