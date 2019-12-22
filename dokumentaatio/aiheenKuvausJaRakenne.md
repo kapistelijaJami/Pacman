@@ -1,24 +1,24 @@
-**Aihe:** Pacman peli. Toteutetaan Pacman peli, jossa ohjataan keltaista hahmoa, jonka tarkoitus on kerätä palloja tulematta haamujen syödyksi. Isomman pallon syömällä pelaajalla on hetki aikaa itse saalistaa haamuja, kunnes ne taas lähtee jahtaamaan sinua. Tavoitteena on tyhjentää koko kenttä palloista.
+**Aihe:** Pacman peli. Toteutetaan Pacman peli, jossa ohjataan keltaista hahmoa, jonka tarkoitus on kerÃ¤tÃ¤ palloja tulematta haamujen syÃ¶dyksi. Isomman pallon syÃ¶mÃ¤llÃ¤ pelaajalla on hetki aikaa itse saalistaa haamuja, kunnes ne taas lÃ¤htee jahtaamaan sinua. Tavoitteena on tyhjentÃ¤Ã¤ koko kenttÃ¤ palloista.
 
-Jokaisesta syödystä pallosta saa 10 pistettä ja isosta pallosta 50 pistettä. Haamujen syömisestä saa 200 pistettä. Haamuilla on myös nimet, punainen on Blinky, vaaleanpunainen on Pinky, vaaleansininen on Inky ja oranssi on Clyde.
+Jokaisesta syÃ¶dystÃ¤ pallosta saa 10 pistettÃ¤ ja isosta pallosta 50 pistettÃ¤. Haamujen syÃ¶misestÃ¤ saa 200 pistettÃ¤. Haamuilla on myÃ¶s nimet, punainen on Blinky, vaaleanpunainen on Pinky, vaaleansininen on Inky ja oranssi on Clyde.
 
-**Käyttäjät:** Pelaaja
+**KÃ¤yttÃ¤jÃ¤t:** Pelaaja
 
 **Pelaajan toiminnot:**
 - pelin aloittaminen
 - hahmon ohjaaminen
 
 **Ideoita (tai tulevaisuuden suunnitelmia):**
-- Mahdollisesti useampi taso, jotka vaikeutuvat entisestä
-- Ehkä erilaisia layoutteja
-- Haamut jahtaavat eri tavalla, joku tähtää eteenpäin jne
-- Mahdollisesti yritän myös animoida haamuille ja pacmanille pieniä animaatioita ja esim silmien liikkeitä
-- Kentälle ilmestyy ylimääräisiä syötäviä, kuten hedelmiä tai marjoja, joista saa lisää pisteitä
+- Mahdollisesti useampi taso, jotka vaikeutuvat entisestÃ¤
+- EhkÃ¤ erilaisia layoutteja
+- Haamut jahtaavat eri tavalla, joku tÃ¤htÃ¤Ã¤ eteenpÃ¤in jne
+- Mahdollisesti yritÃ¤n myÃ¶s animoida haamuille ja pacmanille pieniÃ¤ animaatioita ja esim silmien liikkeitÃ¤
+- KentÃ¤lle ilmestyy ylimÃ¤Ã¤rÃ¤isiÃ¤ syÃ¶tÃ¤viÃ¤, kuten hedelmiÃ¤ tai marjoja, joista saa lisÃ¤Ã¤ pisteitÃ¤
 
 ### Luokkakaavio
 
 ![Luokkakaavio](images/Luokkakaavio.png)
 
-![Pelin aloittaminen](images/Pelin aloittaminen.png)
+![Pelin aloittaminen](images/Pelin%20aloittaminen.png)
 
-![Huippupisteiden katsominen](images/Huippupisteiden katsominen.png)
+![Huippupisteiden katsominen](images/Huippupisteiden%20katsominen.png)
