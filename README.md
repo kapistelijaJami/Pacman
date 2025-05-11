@@ -13,3 +13,6 @@ Pacman on peli, jossa ohjataan keltaista hahmoa, jonka tarkoitus on kerätä pal
 [Käyttöohjeet](dokumentaatio/käyttöohjeet.md)
 
 [Rakennekuvaus](dokumentaatio/rakennekuvaus.md)
+
+## Preview
+![Pacman](https://github.com/kapistelijaJami/Pacman/blob/b3e8b5a66d22a013408ef90715c46226dbde882a/images/Preview.png "Pacman")
